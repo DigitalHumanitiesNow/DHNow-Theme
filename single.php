@@ -102,7 +102,7 @@ Features on this page:
 							echo  '</span></div>';
 							$chief = get_post_meta($post->ID, 'editor-in-chief', true);
 							$large = get_post_meta($post->ID, 'editors-at-large', true);
-							echo get_current_editors();	
+							//echo get_current_editors();	
 							$nomcount = get_post_meta($post->ID, 'nomination_count', true);
 
 							echo '<div class=" col-md-9 editors">
