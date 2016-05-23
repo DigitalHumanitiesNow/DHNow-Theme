@@ -2,11 +2,11 @@
 function ls_scripts() {
 		wp_enqueue_style('brew-child-css', get_stylesheet_directory_uri() . '/library/css/style.css');
 		wp_enqueue_style('ls-css', get_stylesheet_directory_uri() . '/library/css/liquid-slider.css');
-		wp_enqueue_script( 'jquery-easing', get_stylesheet_directory_uri() . 
+		wp_enqueue_script( 'jquery-easing', get_stylesheet_directory_uri() .
 			'/library/js/jquery.easing.1.3.js', array('jquery'));
 		wp_enqueue_script( 'jquery-touchSwipe', get_stylesheet_directory_uri() . '/library/js/jquery.touchSwipe.min.js', array('jquery-easing'));
 		wp_enqueue_script( 'jquery-ls', get_stylesheet_directory_uri() . '/library/js/jquery.liquid-slider.min.js', array('jquery-touchSwipe'));
-   
+
 }
 add_action('wp_enqueue_scripts', 'ls_scripts');
 add_action( 'admin_menu', 'custom_remove_menu_pages' );
@@ -14,7 +14,7 @@ add_action( 'admin_menu', 'custom_remove_menu_pages' );
 function custom_remove_menu_pages() {
   $user = wp_get_current_user();
   if ( in_array('contributor', $user->roles) ) {
-    remove_menu_page('tools.php');  
+    remove_menu_page('tools.php');
   }
 }
 // <!-- SHORTCODES -->
@@ -26,17 +26,17 @@ function active_feeds_function($atts) {
 
 
   $return_string = '<ul class="feedlist">';
-  query_posts(array('post_type' => pressforward()->pf_feeds->post_type, 'post_status' => 
+  query_posts(array('post_type' => pressforward()->pf_feeds->post_type, 'post_status' =>
     $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
 
   if (have_posts()) :
     while (have_posts())  : the_post();
-      $return_string .= '<li class="feeditem"><a href="'.get_post_meta(get_the_ID(), 'feedUrl', true).'"target="_blank">'.get_the_title().'</a></li>'; 
+      $return_string .= '<li class="feeditem"><a href="'.get_post_meta(get_the_ID(), 'feedUrl', true).'"target="_blank">'.get_the_title().'</a></li>';
     endwhile;
   endif;
   $return_string .= '</ul>';
 wp_reset_query();
-return $return_string;      
+return $return_string;
 }
 
 function nomcount_shortcode() {
@@ -61,7 +61,7 @@ function child_bones_excerpt_more($more) {
 }
 add_filter( 'excerpt_more', 'child_bones_excerpt_more');
 
-add_image_size( 'brew-child-thumbnail', 200, 200, true );  
+add_image_size( 'brew-child-thumbnail', 200, 200, true );
 //THESE SECTIONS ARE HARDCODED FOR THE DHNOW THEME.
 
   //   register_sidebar(array(
@@ -117,7 +117,7 @@ function add_opengraph_markup() {
 <meta property="og:url" content="<?php the_permalink(); ?>" />
 <meta property="og:description" content="<?=$description?>" />
 <meta property="og:site_name" content="<?=get_bloginfo('name')?>" />
- 
+
 <?php
   }
 }
@@ -389,7 +389,7 @@ function get_current_editors() {
       'meta_query'     => array(
         array(
           'key'       => $GLOBALS['dbfield'],
-          
+
         ),
       ),
     );
@@ -404,7 +404,7 @@ function get_current_editors() {
         $checkbox = get_user_meta($user->ID, 'pie_checkbox_10', true);
           if (in_array($current_week, $checkbox)){
             $userinfo = get_userdata($user->ID);
-            $username = $userinfo->user_login;
+            $username = $userinfo->display_name;
             $popcontent = '<strong>Institution:</strong> x <br>
             <strong>Bio: </strong>' . $userinfo->description . '<br>';
             $popover = '<a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="'. $popcontent . '" data-html="true" title="' . $userinfo->user_login . '" data-content"'. $userinfo->user_login . '">' . $userinfo->user_login . '</a>';
