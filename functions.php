@@ -6,6 +6,8 @@ function ls_scripts() {
 			'/library/js/jquery.easing.1.3.js', array('jquery'));
 		wp_enqueue_script( 'jquery-touchSwipe', get_stylesheet_directory_uri() . '/library/js/jquery.touchSwipe.min.js', array('jquery-easing'));
 		wp_enqueue_script( 'jquery-ls', get_stylesheet_directory_uri() . '/library/js/jquery.liquid-slider.min.js', array('jquery-touchSwipe'));
+		wp_enqueue_script( 'jquery-ls', get_stylesheet_directory_uri() . '/library/js/libs/bootstrap.min.js', array('jquery'));
+
 
 }
 add_action('wp_enqueue_scripts', 'ls_scripts');
@@ -143,15 +145,15 @@ if ( !isset( $redux_demo ) && file_exists( dirname( __FILE__ ) . '/library/optio
   require_once( dirname( __FILE__ ) . '/library/option-config.php' );
 }
 
-
+//Removed this on 2/17/2015 to avoid confusion on live site.
 // Custom metaboxes and fields
 // https://github.com/jaredatch/Custom-Metaboxes-and-Fields-for-WordPress
-add_action( 'init', 'be_initialize_cmb_meta_boxes', 9999 );
-function be_initialize_cmb_meta_boxes() {
-  if ( !class_exists( 'cmb_Meta_Box' ) ) {
-    require_once( 'library/metabox/init.php' );
-  }
-}
+// add_action( 'init', 'be_initialize_cmb_meta_boxes', 9999 );
+// function be_initialize_cmb_meta_boxes() {
+//   if ( !class_exists( 'cmb_Meta_Box' ) ) {
+//     require_once( 'library/metabox/init.php' );
+//   }
+// }
 
 
 /* library/bones.php (functions specific to BREW)
@@ -377,44 +379,152 @@ function list_pings( $comment, $args, $depth ) {
     </span>
   </li>
 <?php } // end list_pings
-?>
+function get_past_editors() {
+  $blogusers = get_users( 'orderby=nicename&role=contributor' );
+  // Array of WP_User objects.
+  foreach ( $blogusers as $user ) {
+    $userdirectory .= '<div class="userdir panel panel-default">
+      <div class="panel-body"><h5>' . $user->display_name . '</h5><p>' . $user->description .
 
-<?php
+      '</p></div>
+  </div>';
+  }
+  return $userdirectory;
+}
+function get_current_editors_test($postdate) {
+    $options = get_option('dhnsm_settings');
+        $db_pie_field = $options['dhnsm_text_field_0'];
+        global $wpdb;
 
-function get_current_editors() {
-  global $wpdb;
-    // WP_User_Query arguments. Search the database for the values from the pie checkbox.
-    //dhnow this value is pie_checkbox_6, imac test site 10, laptop 3.
-    $args = array (
-      'meta_query'     => array(
-        array(
-          'key'       => $GLOBALS['dbfield'],
+        //setup the query arguments
+        $args = array (
+                'meta_query' => array(
+                array( 'key' => $db_pie_field, 'count_total' => true ),),);
+        $current_week = date("W");
 
-        ),
-      ),
+        //initiate the user query and call the $args
+        $user_query = new WP_User_Query( $args );
+
+        global $userdetails;
+        if ( ! empty($user_query->results)) {
+          //then setup variables for each user
+
+          foreach ($user_query->results as $user) {
+              $checkbox = get_user_meta($user->ID, $db_pie_field, true);
+              if (is_array($checkbox) && in_array($postdate, get_user_meta($user->ID, $db_pie_field, true), false)) {
+                $current_el_id[] = $user->ID;
+              } //end if
+          } //end foreach
+        } //endif
+        return $current_el_id;
+} //end get_current_editors
+
+define('CHARSET', 'UTF-8');
+define('REPLACE_FLAGS', ENT_COMPAT);
+function html($string) {
+    return htmlspecialchars($string, REPLACE_FLAGS, CHARSET);
+}
+
+function construct_el_info($weekno) {
+    $options = get_option('dhnsm_settings');
+        $db_pie_field = $options['dhnsm_text_field_0'];
+        global $wpdb;
+        $popover = '';
+        $current_eds = get_current_editors_test($weekno);
+        $count = count($current_eds);
+        $x = 0;
+        foreach ($current_eds as $current_ed) {
+          $x++;
+          $userinfo = get_userdata($current_ed);
+          $username = $userinfo->user_login;
+          $description = $userinfo->description;
+      $institutionalaffil = get_user_meta($current_ed, 'pie_text_4', true);
+      $optout = 'true';
+      $optoutcheckbox = get_user_meta($current_ed, 'pie_radio_7', true);
+      if ($x < $count) {
+        if (is_array($optoutcheckbox) && in_array($optout,$optoutcheckbox)) {
+          $popcontent = '<strong>This user has opted out.';
+        } elseif (empty($description) == TRUE && empty($institutionalaffil) == TRUE) {
+          $popcontent = '<strong>This user has not edited their profile. If this is your profile, please login to your account and edit your user profile.</strong>';
+        }
+        else {
+          if (empty($institutionalaffil) == TRUE) {
+                            $popcontent = '<strong>Institution:</strong> Not provided. If this is your profile, please login to edit your profile.<br>';
+                        } else {
+                        //generate popover content
+                            $popcontent = '<strong>Institution:</strong>' . $institutionalaffil . '<br>';
+                        }
+                        if (empty($description) == TRUE) {
+                            $popcontent .= '<strong>Bio:</strong> Not provided. If this is your profile, please login to edit your profile.<br>';
+                        } else {
+                            $popcontent .= '<strong>Bio: </strong>' . htmlspecialchars($description) . '<br>';
+                        }
+        }
+      //create popover
+      $popover .= '<a tabindex="0" data-toggle="popover" data-placement="auto" data-trigger="focus" data-content="'. $popcontent . '" data-html="true" title="' . $userinfo->display_name . '" data-content"'. $userinfo->display_name . '">' . $userinfo->display_name . '</a>, ';
+      }
+      elseif ($x == $count) {
+            if (is_array($optoutcheckbox) && in_array($optout,$optoutcheckbox)) {
+          $popcontent = '<strong>This user has opted out.';
+        } elseif (empty($description) == TRUE && empty($institutionalaffil) == TRUE) {
+          $popcontent = '<strong>This user has not edited their profile. If this is your profile, please login to your account and edit your user profile.</strong>';
+        }
+        else {
+          if (empty($institutionalaffil) == TRUE) {
+                            $popcontent = '<strong>Institution:</strong> Not provided. If this is your profile, please login to edit your profile.<br>';
+                        } else {
+                        //generate popover content
+                            $popcontent = '<strong>Institution: </strong>' . $institutionalaffil . '<br>';
+                        }
+                        if (empty($description) == TRUE) {
+                            $popcontent .= '<strong>Bio:</strong> Not provided. If this is your profile, please login to edit your profile.<br>';
+                        } else {
+                            $popcontent .= '<strong>Bio: </strong>' . htmlspecialchars($userinfo->description) . '<br>';
+                        }
+        }
+        $popover .= '<a tabindex="0" data-toggle="popover" data-placement="auto" data-trigger="focus" data-content="'. $popcontent . '" data-html="true" title="<p>' . $userinfo->display_name . '</p>" data-content"'. $userinfo->display_name . '">' . $userinfo->display_name . '</a>.';
+			}
+
+        }
+        return $popover;
+}
+
+
+function EL_info($postID,  $post) {
+  global $_POST;
+  $postdate = get_the_date('Y/m/d', $postID);
+  $currentpostdate = new DateTime($postdate);
+  $weekno = $currentpostdate->format("W");
+
+  $els = construct_el_info($weekno);
+	remove_action('publish_post', 'EL_info', 10, 2);
+	update_post_meta($postID, 'editors-at-large-statement', $els);
+	add_action('publish_post', 'EL_info', 10, 2);
+  add_post_meta($postID, 'editors-at-large-statement', $els, true);
+  return $postID;
+  }
+  add_action('publish_post', 'EL_info', 10, 2);
+//populat the our editors page
+function get_all_editors() {
+  //query arguments
+  $args = array(
+    'role' => 'Contributor'
     );
-
-  $popover;
-  $current_week = date("W");
+  $eds = "<table class='table-striped'><tr><th>Name</th><th>Institutional Affiliation</th><th>Twitter Handle</th></tr>";
+  //the query
   $user_query = new WP_User_Query( $args );
-  global $userdetails;
-  if ( ! empty($user_query->results)) {
+
+  // User loop
+  if (! empty($user_query->results) ) {
     foreach ($user_query->results as $user) {
-        $allmeta = get_user_meta( $user->ID );
-        $checkbox = get_user_meta($user->ID, 'pie_checkbox_10', true);
-          if (in_array($current_week, $checkbox)){
-            $userinfo = get_userdata($user->ID);
-            $username = $userinfo->display_name;
-            $popcontent = '<strong>Institution:</strong> x <br>
-            <strong>Bio: </strong>' . $userinfo->description . '<br>';
-            $popover = '<a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="'. $popcontent . '" data-html="true" title="' . $userinfo->user_login . '" data-content"'. $userinfo->user_login . '">' . $userinfo->user_login . '</a>';
-          }
-    } //end foreach
+      $institutionalaffil = get_user_meta($user->ID, 'pie_text_4', true);
+      $twitterhandle = get_user_meta($user->ID, 'pie_text_5', true);
+      $eds .= '<tr><td>' . $user->display_name . '</td><td>' . $institutionalaffil . '</td><td>' . $twitterhandle .'</td></tr>'; }
+  } else {
+    echo 'No users found';
+  }
+$eds .= '</table>';
+return $eds;
 
-  } //end if
-  echo 'This content was selected for <i>Digital Humanities Now</i> by Editor-in-Chief based on nomination by this weeks Editors-at-Large: ' . $popover;
-} //end func
-
-
-
+}
 ?>
