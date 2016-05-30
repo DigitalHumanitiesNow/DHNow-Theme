@@ -8,6 +8,7 @@ function ls_scripts() {
 		wp_enqueue_script( 'jquery-ls', get_stylesheet_directory_uri() . '/library/js/jquery.liquid-slider.min.js', array('jquery-touchSwipe'));
 		wp_enqueue_script( 'jquery-ls', get_stylesheet_directory_uri() . '/library/js/libs/bootstrap.min.js', array('jquery'));
 
+
 }
 add_action('wp_enqueue_scripts', 'ls_scripts');
 add_action( 'admin_menu', 'custom_remove_menu_pages' );
@@ -487,6 +488,7 @@ function construct_el_info($weekno) {
         }
         return $popover;
 }
+
 
 function EL_info($postID,  $post) {
   global $_POST;
