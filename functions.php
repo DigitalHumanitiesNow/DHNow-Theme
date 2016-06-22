@@ -42,22 +42,23 @@ function custom_remove_menu_pages() {
 // }
 
 function active_feeds_function($atts) {
-  extract(shortcode_atts(array(
+	extract(shortcode_atts(array(
       'status' => 'publish',
     ), $atts));
 
 
   $return_string = '<ul class="feedlist">';
-	$the_query = new WP_Query(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
-    $status, 'posts_per_page' => 600, 'orderby' => 'title', 'order' => 'ASC'));
+    $the_query = new WP_Query(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
+    $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
 
-  if (have_posts()) :
-    while (have_posts())  : the_post();
+  if ($the_query->have_posts()) :
+    while ($the_query->have_posts())  : $the_query->the_post();
       $return_string .= '<li class="feeditem"><a href="'.get_post_meta(get_the_ID(), 'feedUrl', true).'"target="_blank">'.get_the_title().'</a></li>';
     endwhile;
   endif;
   $return_string .= '</ul>';
 wp_reset_query();
+wp_reset_postdata();
 return $return_string;
 }
 
