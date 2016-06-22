@@ -26,7 +26,7 @@ function custom_remove_menu_pages() {
 //       'status' => 'publish',
 //     ), $atts));
 //
-// 
+//
 //   $return_string = '<ul class="feedlist">';
 //   query_posts(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
 //     $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
@@ -48,8 +48,8 @@ function active_feeds_function($atts) {
 
 
   $return_string = '<ul class="feedlist">';
-	$the_query = new WP_Query('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
-    $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC');
+	$the_query = new WP_Query(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
+    $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
 
   if (have_posts()) :
     while (have_posts())  : the_post();
