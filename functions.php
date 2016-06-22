@@ -49,7 +49,7 @@ function active_feeds_function($atts) {
 
   $return_string = '<ul class="feedlist">';
 	$the_query = new WP_Query(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
-    $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
+    $status, 'posts_per_page' => 600, 'orderby' => 'title', 'order' => 'ASC'));
 
   if (have_posts()) :
     while (have_posts())  : the_post();
