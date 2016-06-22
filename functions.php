@@ -28,7 +28,7 @@ function active_feeds_function($atts) {
 
 
   $return_string = '<ul class="feedlist">';
-  query_posts(array('post_type' => pressforward()->pf_feeds->post_type, 'post_status' =>
+  query_posts(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
     $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
 
   if (have_posts()) :
