@@ -21,6 +21,26 @@ function custom_remove_menu_pages() {
 }
 // <!-- SHORTCODES -->
 
+// function active_feeds_function($atts) {
+//   extract(shortcode_atts(array(
+//       'status' => 'publish',
+//     ), $atts));
+//
+// 
+//   $return_string = '<ul class="feedlist">';
+//   query_posts(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
+//     $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
+//
+//   if (have_posts()) :
+//     while (have_posts())  : the_post();
+//       $return_string .= '<li class="feeditem"><a href="'.get_post_meta(get_the_ID(), 'feedUrl', true).'"target="_blank">'.get_the_title().'</a></li>';
+//     endwhile;
+//   endif;
+//   $return_string .= '</ul>';
+// wp_reset_query();
+// return $return_string;
+// }
+
 function active_feeds_function($atts) {
   extract(shortcode_atts(array(
       'status' => 'publish',
@@ -28,8 +48,8 @@ function active_feeds_function($atts) {
 
 
   $return_string = '<ul class="feedlist">';
-  query_posts(array('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
-    $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC'));
+	$the_query = new WP_Query('post_type' => pressforward('schema.feeds')->post_type, 'post_status' =>
+    $status, 'nopaging' => true, 'orderby' => 'title', 'order' => 'ASC');
 
   if (have_posts()) :
     while (have_posts())  : the_post();
@@ -40,6 +60,7 @@ function active_feeds_function($atts) {
 wp_reset_query();
 return $return_string;
 }
+
 
 function nomcount_shortcode() {
   $nomcount = get_post_meta($post->ID, 'nomination_count', true);
