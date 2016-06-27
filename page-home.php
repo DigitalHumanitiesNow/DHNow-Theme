@@ -5,273 +5,461 @@ Template Name: Home Page Template
 ?>
 
 <?php get_header(); ?>
+<?php $slider_switch = Kirki::get_option( 'pftk_opts', 'slider-switch'); ?>
+<?php if ($slider_switch == true): ?>
+<div id="content" class="slider-container">
 
-<!-- BLOCK 1: SLIDER -->
+<div class="row">
+<div class="medium-12 large-12 columns">
+	<?php $slider_autoplay = Kirki::get_option('pftk_opts', 'slider-autoplay');
+	echo '<div class="orbit" role="region" data-options="' . $slider_autoplay . '" aria-label="Editor\'s Choice" data-orbit>'; ?>
+  	<ul class="orbit-container">
+    	<button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+    	<button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
 
-<div class="slider">
- <div  class="container homepage">
-    <div class="sl-test">
-          <?php
-          $postcats = 'category=' . $brew_options['slider-categories'][0] . '&posts_per_page=4';
-          $feat_posts = get_posts($postcats); ?>
-        <div class="liquid-slider" id ="slider2">
-          <?php foreach($feat_posts as $post) { ?>
-              <div id="slider-content">
-                  <?php $trim_title = get_post_field('post_title', $id);
-                        $short_title = wp_trim_words( $trim_title, $num_words = 14, $more = '… ' );
-                        echo '<div id="slidertitle"><h1>' . $short_title . '</h1>';
-                        echo '<br><h2>By: ' . get_the_author() . '</h2></div>';  ?>
-                  <?php $trimexcerpt = get_post_field('post_content', $id);
-                        $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = 55, $more = '… ' );
-                        echo '<div id="slidertext"><p class="info-title">' .  $shortexcerpt . '</p>';  ?>
-                  <a href="<?php echo get_permalink(); ?>" alt="<?php echo get_the_title() ?>" class="btn btn-default">Read More</a>
+			<?php
+			//get slider category ids from customizer option
+			$pftk_opts = '';
+			$slider_category = '';
 
-                  <h2 class="title">
-              <span><i class="fa fa-circle filled"></i><i class="fa fa-circle-thin empty"></i></span>
-</h2>
-              </div> <!-- Close #slider-content -->
+			$slider_categories_option = Kirki::get_option( 'pftk_opts', 'slider_category');
 
-              <div id="sliderimg">
-                 <?php echo get_the_post_thumbnail( $post->ID, 'large') ?>
-              </div> <!-- close #sliderimg -->
+			//get number of posts from customizer option
+			$slider_numposts_option = Kirki::get_option( 'pftk_opts', 'slider_numposts' );
+			$slider_title_num_words = Kirki::get_option('pftk_opts', 'slider-title-numwords');
+			$slider_excerpt_num_words = Kirki::get_option('pftk_opts', 'slider-excerpt-numwords');
+			$postcats = 'category='. $slider_categories_option . '&posts_per_page=' . $slider_numposts_option;
+			$feat_posts = get_posts($postcats);
+			$bullets = 1;
+			foreach($feat_posts as $post) {
 
-        </div> <!-- close .liquid-slider #slider2 -->
-        <?php } ?> <!--closes for each loop -->
-    </div>
- </div> <!-- close .sl-test -->
-</div> <!-- close .container .homepage -->
-</div> <!-- end .slider -->
-<main class="um-notice" role="main">
-<div class="container" id="um-notice" >
-  <div class="row text-center">
-    <div class="col-md-12">
-      <p><i class="fa fa-asterisk"></i> Heads up! Our Editor-at-Large sign up and user registration process has changed. <a href="http://dhnow.org/1Tov478"> Read about our new system here. </a></p>
-    </div>
-  </div> <!-- close row -->
+        $trim_title = get_post_field('post_title', $id);
+        $short_title = wp_trim_words( $trim_title, $num_words = $slider_title_num_words, $more = '… ' );
+				$trimexcerpt = get_post_field('post_content', $id);
+				$authorid = $post->post_author;
+
+				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+				if ( is_plugin_active( 'pressforward/pressforward.php' ) ) {
+  			//plugin is activated
+				$itemauth = get_post_meta($post->ID, 'item_author', true);
+				}
+        $shortexcerpt = wp_trim_words( $trimexcerpt, $num_words = $slider_excerpt_num_words, $more = '… ' );
+						echo '<li class="orbit-slide">';
+						echo '<div class="row">';
+						echo '<div class="medium-11 large-11 columns"><h1>' . $short_title . '</h1></div></div>';
+						echo '<div class="row">';
+						echo '<div class="medium-6 large-7 columns">';
+						echo '<h2 class="slider-byline">By: ';
+						if ( is_plugin_active( 'pressforward/pressforward.php' ) && !empty($itemauth) ) {
+						echo $itemauth;
+					} else {
+						echo the_author_meta('user_nicename', $authorid);
+					}
+						echo '</h2></br><p class="info-title">' . $shortexcerpt . '</p> <a href="' . get_permalink() . '
+						" alt="' . get_the_title() . '" class="pf-tk-button">Read More</a></div>';
+						$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
+						echo '<div class="large-5 medium-6 columns">';
+						if(empty($thumb)) {
+							echo '';
+						} else {
+							echo '<img src="' . $thumb[0] . '" class="thumbnail home"></div>';
+						}
+						echo '</div>';
+						echo '</li>';
+						$bullets++;
+			}
+?>
+</ul>
+<nav class="orbit-bullets" id="slider-nav">
+		<?php
+		$counter = 0;
+		while($counter < $bullets - 1) {
+			if ($counter == 0) {
+			echo '<button data-slide="'. $counter . '"><span class="show-for-sr">slide details.</span><span class="show-for-sr">Current Slide</span></button>';
+			$counter++;
+		} elseif ($counter < $bullets - 1) {
+			echo '<button data-slide="'. $counter . '"><span class="show-for-sr">slide details.</span></button>';
+			$counter++;
+		}
+		} ?>
+  </nav>
+	</div> <!-- close .orbit -->
 </div>
-</main>
-
-<!-- BLOCK 2-PARTICIPATE -->
-
-<main class="participatehome" role="main">
-    <div class="container" id="participate">
-        <div class="row text-center">
-            <div class="col-md-3">
-                <i class="fa <?php echo $brew_options['b2-c1-icon'] ?> fa-3x"></i>
-              <h1 class="widgettitle"><a href="<?php echo get_page_link($brew_options['b2-c1-pagelink']); ?>"><?php echo $brew_options['b2-c1-heading'] ?></a></h1>
-              <div class="textwidget">
-              <p><?php echo $brew_options['b2-c1-text'] ?></p>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-                <i class="fa <?php echo $brew_options['b2-c2-icon'] ?> fa-3x"></i>
-                <h1 class="widgettitle"><a href="<?php echo get_page_link($brew_options['b2-c2-pagelink']); ?>"><?php echo $brew_options['b2-c2-heading'] ?></a></h1>
-              <div class="textwidget">
-              <p><?php echo $brew_options['b2-c2-text'] ?></p>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-            <i class="fa <?php echo $brew_options['b2-c3-icon'] ?> fa-3x"></i>
-                 <h1 class="widgettitle"><a href="<?php echo get_page_link($brew_options['b2-c3-pagelink']); ?>"><?php echo $brew_options['b2-c3-heading'] ?></a></h1>
-              <div class="textwidget">
-              <?php if (is_user_logged_in() ) {
-                echo '<a class="btn btn-default" href="' .get_dashboard_url() . '/admin.php?page=pf-menu" role="button">Nominate Content</a>';
-              } else {
-                echo '<a class="btn btn-default" href="' . get_site_url() . '/login" role="button">Log In</a>';
-              } ?>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-            <i class="fa <?php echo $brew_options['b2-c4-icon'] ?> fa-3x"></i>
-                 <h1 class="widgettitle"><a href="<?php echo get_page_link($brew_options['b2-c4-pagelink']); ?>"><?php echo $brew_options['b2-c4-heading'] ?></a></h1>
-              <div class="textwidget">
-              <?php if (is_user_logged_in() ) {
-                echo '<a class="btn btn-default" href="' . get_edit_profile_url() . '" role="button">Manage Volunteer Dates</a> ';
-              } else {
-                 echo '<p>' . $brew_options['b2-c4-text'] . '</p>';
-              } ?>
-              </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<!-- BLOCK 3: CATEGORIES -->
-<?php global $brew_options ?>
-<main class="categorieshome" role="main">
-  <div class="container" id="categories">
-    <div class="row text-center">
-      <div class="row homecategories">
-        <!--Section 1-->
-          <div class="col-md-4 about" id="content1">
-              <div class="homeinnerwrapper">
-                <i class="fa <?php echo $brew_options['b3-c1-icon'] ?> fa-3x"></i>
-                <div class="homeinnercontent">
-                <?php $b3_c1_link = get_category_link( $brew_options['b3-c1-category'] ); ?>
-                 <?php echo '<a href="' . $b3_c1_link . '"><h1>' . $brew_options['b3-c1-title'] . '</h1>'; ?>
-                <ul>
-                <?php $b3c1cat = 'cat=' . $brew_options['b3-c1-category'] . '&posts_per_page=3' ?>
-                <?php query_posts($b3c1cat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                <?php wp_reset_query(); ?>
-                </ul>
-                </div>
-
-              </div>
-          </div>
-
-        <!--Section 2-->
-          <div class="col-md-4 about content2">
-                <div class="homeinnerwrapper">
-                <i class="fa <?php echo $brew_options['b3-c2-icon'] ?> fa-3x"></i>
-                <div class="homeinnercontent">
-                <?php $b3_c2_link = get_category_link( $brew_options['b3-c2-category'] ); ?>
-                 <?php echo '<a href="' . $b3_c2_link . '"><h1>' . $brew_options['b3-c2-title'] . '</h1>'; ?>
-                <ul>
-                <?php $b3c2cat = 'cat=' . $brew_options['b3-c2-category'] . '&posts_per_page=3' ?>
-                <?php query_posts($b3c2cat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                <?php wp_reset_query(); ?>
-                </ul>
-                </div>
-
-              </div>
-          </div>
-
-        <!--Section 3-->
-          <div class="col-md-4 about content3">
-             <div class="homeinnerwrapper">
-                <i class="fa <?php echo $brew_options['b3-c3-icon'] ?> fa-3x"></i>
-                <div class="homeinnercontent">
-                <?php $b3_c3_link = get_category_link( $brew_options['b3-c3-category'] ); ?>
-                 <?php echo '<a href="' . $b3_c3_link . '"><h1>' . $brew_options['b3-c3-title'] . '</h1>'; ?>
-                <ul>
-                <?php $b3c3cat = 'cat=' . $brew_options['b3-c3-category'] . '&posts_per_page=3' ?>
-                <?php query_posts($b3c3cat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                <?php wp_reset_query(); ?>
-                </ul>
-                </div>
-
-              </div>
-          </div>
-
-      </div> <!--end row-->
-
-      <div class="row homecategories">
-        <!--Section 1-->
-          <div class="col-md-4 about content4">
-              <div class="homeinnerwrapper">
-                <i class="fa <?php echo $brew_options['b3-c4-icon'] ?> fa-3x"></i>
-                <div class="homeinnercontent">
-                <?php $b3_c4_link = get_category_link( $brew_options['b3-c4-category'] ); ?>
-                 <?php echo '<a href="' . $b3_c4_link . '"><h1>' . $brew_options['b3-c4-title'] . '</h1>'; ?>
-                <ul>
-                <?php $b3c4cat = 'cat=' . $brew_options['b3-c4-category'] . '&posts_per_page=3' ?>
-                <?php query_posts($b3c4cat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                <?php wp_reset_query(); ?>
-                </ul>
-                </div>
-
-              </div>
-          </div>
-
-        <!--Section 2-->
-          <div class="col-md-4 about content5">
-             <div class="homeinnerwrapper">
-                <i class="fa <?php echo $brew_options['b3-c5-icon'] ?> fa-3x"></i>
-                <div class="homeinnercontent">
-                <?php $b3_c5_link = get_category_link( $brew_options['b3-c5-category'] ); ?>
-                 <?php echo '<a href="' . $b3_c5_link . '"><h1>' . $brew_options['b3-c5-title'] . '</h1>'; ?>
-                <ul>
-                <?php $b3c5cat = 'cat=' . $brew_options['b3-c5-category'] . '&posts_per_page=3' ?>
-                <?php query_posts($b3c5cat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                <?php wp_reset_query(); ?>
-                </ul>
-                </div>
-
-              </div>
-          </div>
-
-        <!--Section 3-->
-          <div class="col-md-4 about content6">
-             <div class="homeinnerwrapper">
-                <i class="fa <?php echo $brew_options['b3-c6-icon'] ?> fa-3x"></i>
-                <div class="homeinnercontent">
-                <?php $b3_c6_link = get_category_link( $brew_options['b3-c6-category'] ); ?>
-                 <?php echo '<a href="' . $b3_c6_link . '"><h1>' . $brew_options['b3-c6-title'] . '</h1>'; ?>
-                <ul>
-                <?php $b3c6cat = 'cat=' . $brew_options['b3-c6-category'] . '&posts_per_page=3' ?>
-                <?php query_posts($b3c6cat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                <?php wp_reset_query(); ?>
-                </ul>
-                </div>
-
-              </div>
-          </div>
-      </div> <!--end row-->
-    </div>
-  </div>
-</main>
-
-
-
-<!-- BLOCK 4: ABOUT -->
-<div class="block4" role="main">
-<div class="container info">
-  <div class="row">
-    <div class="col-md-12" id="infotext">
-        <?php echo $brew_options['about_text'] ?>
-    </div>
-  </div>
+</div><!--  close .row #slider -->
 </div>
-</div>
+<?php endif; ?>
+<!-- </div> end content -->
 
-<!-- BLOCK 5: BLOG -->
-<main class="bloghome" role="main">
-  <div class="container" id="blog">
-    <div class="row">
-     <h2>Blog</h2>
-        <div class="col-md-7" id="blog-excerpt">
-         <?php $blogcat = 'cat=' . $brew_options['blog-category'] . '&posts_per_page=1' ?>
-                <?php query_posts($blogcat); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <h3><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h3>
-                    <p><?php the_excerpt(); ?></p>
-                <?php endwhile; endif; ?>
+<!--
+Block 2
+-->
+<?php $toggle_b2 = Kirki::get_option( 'pftk_opts', 'toggle-b2'); ?>
+		<?php if ($toggle_b2 == true): ?>
+      <div class="block-2" id="block-2">
+	              <div class="row">
+	                  <div class="large-3 medium-3 columns">
+												<?php $b2c1_icon = Kirki::get_option( 'pftk_opts', 'b2c1-icon' );
+												echo '<i class="fa ' . $b2c1_icon . ' fa-3x"></i>';
+												$b2c1_title = Kirki::get_option( 'pftk_opts', 'b2c1-title');
+												$b2c1_link = Kirki::get_option('pftk_opts', 'b2c1-link');
+												$titleorlinkfield = Kirki::get_option( 'pftk_opts', 'b2c1-maketitlelinked');
+												if ($titleorlinkfield == 1){
+												echo '<h1 class="widgettitle"><a href="' . get_permalink($b2c1_link) . '">' . $b2c1_title . '</a></h1>';
+											} else {
+												echo '<h1 class="widgettitle">' . $b2c1_title . '</h1>';
+											} ?>
+	                    <div class="textwidget">
+												<?php $b2c1_text = Kirki::get_option( 'pftk_opts', 'b2c1-text');
+											  echo '<p>' . $b2c1_text . '</p>' ?>
+	                    </div>
+	                	</div>
 
-        </div>
+										<div class="large-3 medium-3 columns">
+											 <?php $b2c2_icon = Kirki::get_option( 'pftk_opts', 'b2c2-icon' );
+											 echo '<i class="fa ' . $b2c2_icon . ' fa-3x"></i>';
+											 $b2c2_title = Kirki::get_option( 'pftk_opts', 'b2c2-title');
+											 $b2c2_link = Kirki::get_option('pftk_opts', 'b2c2-link');
+ 											if ($titleorlinkfield == 1){
+ 											echo '<h1 class="widgettitle"><a href="' . get_permalink($b2c2_link) . '">' . $b2c2_title . '</a></h1>';
+ 										} else {
+ 											echo '<h1 class="widgettitle">' . $b2c2_title . '</h1>';
+ 										} ?>
+										 <div class="textwidget">
+											 <?php $b2c2_text = Kirki::get_option( 'pftk_opts', 'b2c2-text');
+											 echo '<p>' . $b2c2_text . '</p>' ?>
+										 </div>
+									 </div>
 
-        <div class="col-md-5" id="bloglist">
-        <?php $blogcat2 = 'cat=' . $brew_options['blog-category'] . '&posts_per_page=5' ?>
-                <ul>
-                <?php query_posts($blogcat2); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                    <li><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></li>
-                <?php endwhile; endif; ?>
-                </ul>
-        </div>
-    </div>
-  </div>
-</main>
+									 <div class="large-3 medium-3 columns">
+											 <?php $b2c3_icon = Kirki::get_option( 'pftk_opts', 'b2c3-icon' );
+											 echo '<i class="fa ' . $b2c3_icon . ' fa-3x"></i>';
+											 $b2c3_title = Kirki::get_option( 'pftk_opts', 'b2c3-title');
+											 $b2c3_link = Kirki::get_option('pftk_opts', 'b2c3-link');
+											 $b2c1_titleorlinkfield = Kirki::get_option( 'pftk_opts', 'b2c1-maketitlelinked');
+											 if ($titleorlinkfield == 1){
+											 echo '<h1 class="widgettitle"><a href="' . get_permalink($b2c3_link) . '">' . $b2c3_title . '</a></h1>';
+										 } else {
+											 echo '<h1 class="widgettitle">' . $b2c3_title . '</h1>';
+										 } ?>
+										 <div class="textwidget">
+											 <?php $b2c3_text = Kirki::get_option( 'pftk_opts', 'b2c3-text');
+											 echo '<p>' . $b2c3_text . '</p>' ?>
+										 </div>
+									 </div>
 
+									 <div class="large-3 medium-3 columns">
+ 											<?php $b2c4_icon = Kirki::get_option( 'pftk_opts', 'b2c4-icon' );
+ 											echo '<i class="fa ' . $b2c4_icon . ' fa-3x"></i>';
+ 											$b2c4_title = Kirki::get_option( 'pftk_opts', 'b2c4-title');
+											$b2c4_link = Kirki::get_option('pftk_opts', 'b2c4-link');
+											$b2c1_titleorlinkfield = Kirki::get_option( 'pftk_opts', 'b2c1-maketitlelinked');
+											if ($b2c1_titleorlinkfield == 1){
+											echo '<h1 class="widgettitle"><a href="' . get_permalink($b2c4_link) . '">' . $b2c4_title . '</a></h1>';
+										} else {
+											echo '<h1 class="widgettitle">' . $b2c4_title . '</h1>';
+										} ?>
+ 										<div class="textwidget">
+ 											<?php $b2c4_text = Kirki::get_option( 'pftk_opts', 'b2c4-text');
+ 											echo '<p>' . $b2c4_text . '</p>' ?>
+ 										</div>
+ 									</div>
+
+	            </div> <!-- close .row -->
+	      </div> <!-- close .block-2 -->
+			<?php endif;	?>
+
+<!--
+Block 3
+-->
+<?php $toggle_b3 = Kirki::get_option( 'pftk_opts', 'toggle-b3');
+$b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
+	if ($toggle_b3 == true): ?>
+	<div class="block-3">
+		<div class="row small-up-1  large-up-3" data-equalizer data-equalize-by-row="true">
+				<!--B3 R1 C1 -->
+				<div class="column" >
+						<div class="b3-wrapper" data-equalizer-watch>
+								<?php $b3r1c1_icon = Kirki::get_option('pftk_opts', 'b3r1c1-icon');
+								echo '<i class="fa ' . $b3r1c1_icon . ' fa-3x"></i>';
+
+								$b3r1c1_link = Kirki::get_option('pftk_opts', 'b3r1c1-link');
+								$b3r1c1_title = Kirki::get_option('pftk_opts', 'b3r1c1-title');
+
+								//echo '<h1><a href="' . get_permalink($b3r1c1_link) .'">' . $b3r1c1_title .'</a></h1>';
+								if ($b3_linkortitle == 1){
+								echo '<h1><a href="' . get_permalink($b3r1c1_link) .'">' . $b3r1c1_title .'</a></h1>';
+							} else {
+								echo '<h1 class="widgettitle">' . $b3r1c1_title . '</h1>';
+							} ?>
+								<ul>
+									<?php $b3r1c1_category = Kirki::get_option( 'pftk_opts', 'b3r1c1-category');
+									$b3c1cat = 'cat=' . $b3r1c1_category . '&posts_per_page=3';
+									query_posts($b3c1cat);
+
+									if ( have_posts() ) : while ( have_posts() ) : the_post();
+										echo '<li><a href="';
+										echo the_permalink() . '">';
+										echo  the_title() . '</a></li>';
+									endwhile; endif;
+
+									wp_reset_query(); ?>
+								</ul>
+
+						</div> <!--END B3-WRAPPER-->
+					</div> <!--END COLUMN -->
+
+					<div class="column" >
+					    <div class="b3-wrapper" data-equalizer-watch>
+					        <?php $b3r1c2_icon = Kirki::get_option('pftk_opts', 'b3r1c2-icon');
+					        echo '<i class="fa ' . $b3r1c2_icon . ' fa-3x"></i>';
+
+					        $b3r1c2_link = Kirki::get_option('pftk_opts', 'b3r1c2-link');
+					        $b3r1c2_title = Kirki::get_option('pftk_opts', 'b3r1c2-title');
+
+
+									if ($b3_linkortitle == 1){
+									echo '<h1><a href="' . get_permalink($b3r1c2_link) .'">' . $b3r1c2_title .'</a></h1>';
+								} else {
+									echo '<h1 class="widgettitle">' . $b3r1c2_title . '</h1>';
+								} ?>
+
+					        <ul>
+					          <?php $b3r1c2_category = Kirki::get_option( 'pftk_opts', 'b3r1c2-category');
+					          $b3c1cat = 'cat=' . $b3r1c2_category . '&posts_per_page=3';
+					          query_posts($b3c1cat);
+
+					          if ( have_posts() ) : while ( have_posts() ) : the_post();
+					            echo '<li><a href="';
+					            echo the_permalink() . '">';
+					            echo  the_title() . '</a></li>';
+					          endwhile; endif;
+
+					          wp_reset_query(); ?>
+					        </ul>
+
+					    </div> <!--END B3-WRAPPER-->
+					  </div> <!--END COLUMN -->
+
+						<div class="column" >
+						    <div class="b3-wrapper" data-equalizer-watch>
+						        <?php $b3r1c3_icon = Kirki::get_option('pftk_opts', 'b3r1c3-icon');
+						        echo '<i class="fa ' . $b3r1c3_icon . ' fa-3x"></i>';
+
+						        $b3r1c3_link = Kirki::get_option('pftk_opts', 'b3r1c3-link');
+						        $b3r1c3_title = Kirki::get_option('pftk_opts', 'b3r1c3-title');
+
+										if ($b3_linkortitle == 1){
+										echo '<h1><a href="' . get_permalink($b3r1c3_link) .'">' . $b3r1c3_title .'</a></h1>';
+									} else {
+										echo '<h1 class="widgettitle">' . $b3r1c3_title . '</h1>';
+									} ?>
+
+						        <ul>
+						          <?php $b3r1c3_category = Kirki::get_option( 'pftk_opts', 'b3r1c3-category');
+						          $b3c1cat = 'cat=' . $b3r1c3_category . '&posts_per_page=3';
+						          query_posts($b3c1cat);
+
+						          if ( have_posts() ) : while ( have_posts() ) : the_post();
+						            echo '<li><a href="';
+						            echo the_permalink() . '">';
+						            echo  the_title() . '</a></li>';
+						          endwhile; endif;
+
+						          wp_reset_query(); ?>
+						        </ul>
+
+						    </div> <!--END B3-WRAPPER-->
+						  </div> <!--END COLUMN -->
+
+	</div> <!--END ROW-->
+	<?php $b3_numrows = Kirki::get_option( 'pftk_opts', 'b3-numrows' );
+	if ($b3_numrows == 'Two'): ?>
+	<div class="row small-up-1  large-up-3" style="margin-top:15px;" data-equalizer data-equalize-by-row="true">
+		<div class="column">
+				<div class="b3-wrapper" data-equalizer-watch>
+						<?php $b3r2c1_icon = Kirki::get_option('pftk_opts', 'b3r2c1-icon');
+						echo '<i class="fa ' . $b3r2c1_icon . ' fa-3x"></i>';
+
+						$b3r2c1_link = Kirki::get_option('pftk_opts', 'b3r2c1-link');
+						$b3r2c1_title = Kirki::get_option('pftk_opts', 'b3r2c1-title');
+
+						if ($b3_linkortitle == 1){
+						echo '<h1><a href="' . get_permalink($b3r2c1_link) .'">' . $b3r2c1_title .'</a></h1>';
+					} else {
+						echo '<h1 class="widgettitle">' . $b3r2c1_title . '</h1>';
+					} ?>
+
+						<ul>
+							<?php $b3r2c1_category = Kirki::get_option( 'pftk_opts', 'b3r2c1-category');
+							$b3c1cat = 'cat=' . $b3r2c1_category . '&posts_per_page=3';
+							query_posts($b3c1cat);
+
+							if ( have_posts() ) : while ( have_posts() ) : the_post();
+								echo '<li><a href="';
+								echo the_permalink() . '">';
+								echo  the_title() . '</a></li>';
+							endwhile; endif;
+
+							wp_reset_query(); ?>
+						</ul>
+
+				</div> <!--END B3-WRAPPER-->
+			</div> <!--END COLUMN -->
+
+			<div class="column">
+			    <div class="b3-wrapper" data-equalizer-watch>
+			        <?php $b3r2c2_icon = Kirki::get_option('pftk_opts', 'b3r2c2-icon');
+			        echo '<i class="fa ' . $b3r2c2_icon . ' fa-3x"></i>';
+
+			        $b3r2c2_link = Kirki::get_option('pftk_opts', 'b3r2c2-link');
+			        $b3r2c2_title = Kirki::get_option('pftk_opts', 'b3r2c2-title');
+
+							if ($b3_linkortitle == 1){
+							echo '<h1><a href="' . get_permalink($b3r2c2_link) .'">' . $b3r2c2_title .'</a></h1>';
+						} else {
+							echo '<h1 class="widgettitle">' . $b3r2c2_title . '</h1>';
+						} ?>
+
+			        <ul>
+			          <?php $b3r2c2_category = Kirki::get_option( 'pftk_opts', 'b3r2c2-category');
+			          $b3c1cat = 'cat=' . $b3r2c2_category . '&posts_per_page=3';
+			          query_posts($b3c1cat);
+
+			          if ( have_posts() ) : while ( have_posts() ) : the_post();
+			            echo '<li><a href="';
+			            echo the_permalink() . '">';
+			            echo  the_title() . '</a></li>';
+			          endwhile; endif;
+
+			          wp_reset_query(); ?>
+			        </ul>
+
+			    </div> <!--END B3-WRAPPER-->
+			  </div> <!--END COLUMN -->
+
+				<div class="column">
+				    <div class="b3-wrapper" data-equalizer-watch>
+				        <?php $b3r2c3_icon = Kirki::get_option('pftk_opts', 'b3r2c3-icon');
+				        echo '<i class="fa ' . $b3r2c3_icon . ' fa-3x"></i>';
+
+				        $b3r2c3_link = Kirki::get_option('pftk_opts', 'b3r2c3-link');
+				        $b3r2c3_title = Kirki::get_option('pftk_opts', 'b3r2c3-title');
+
+								if ($b3_linkortitle == 1){
+								echo '<h1><a href="' . get_permalink($b3r2c3_link) .'">' . $b3r2c3_title .'</a></h1>';
+							} else {
+								echo '<h1 class="widgettitle">' . $b3r2c3_title . '</h1>';
+							} ?>
+
+				        <ul>
+				          <?php $b3r2c3_category = Kirki::get_option( 'pftk_opts', 'b3r2c3-category');
+				          $b3c1cat = 'cat=' . $b3r2c3_category . '&posts_per_page=3';
+				          query_posts($b3c1cat);
+
+				          if ( have_posts() ) : while ( have_posts() ) : the_post();
+				            echo '<li><a href="';
+				            echo the_permalink() . '">';
+				            echo  the_title() . '</a></li>';
+				          endwhile; endif;
+
+				          wp_reset_query(); ?>
+				        </ul>
+
+				    </div> <!--END B3-WRAPPER-->
+				  </div> <!--END COLUMN -->
+				<?php endif; ?>
+	</div>
+</div><!--end .BLOCK-3-->
+<?php endif; ?>
+
+<!--
+Block 4
+-->
+		<?php $toggle_b4 = Kirki::get_option( 'pftk_opts', 'toggle-b4');
+
+		if ($toggle_b4 == true): ?>
+
+			<div class="block-4">
+							<div class="row">
+									<div class="large-12 medium-12 columns" id="infotext">
+										<?php $block4_text = Kirki::get_option('pftk_opts', 'b4-text');
+										 $block4_title = Kirki::get_option('pftk_opts', 'b4-title');
+										 $block4_title_link = Kirki::get_option('pftk_opts','b4-title-link');
+
+									if (empty($block4_title_link) == FALSE):
+										echo '<h1 class="widgettitle"><a href="' . get_the_permalink($block4_title_link) . '">' . $block4_title . '</a></h1>';
+									else:
+										echo '<h1 class="widgettitle">' . $block4_title . '</h1>';
+
+									endif;
+									echo '<p>' . $block4_text . '</p>';
+										?>
+									</div>
+							</div>
+			</div>
+		<?php endif ?>
+<!--
+Block 5
+-->
+		<?php $toggle_b5 = Kirki::get_option( 'pftk_opts', 'toggle-b5');
+
+		if ($toggle_b5 == true): ?>
+				<div class="block-5">
+					<div class="row">
+						<div class="large-12 medium-12 columns">
+								<?php
+								$block5_title_link = Kirki::get_option( 'pftk_opts', 'b5-title-link');
+								$block5_title = Kirki::get_option('pftk_opts', 'b5-title');
+								if (empty($block5_title_link) == FALSE):
+									echo '<h1><a href="' . get_the_permalink($block5_title_link) . '">' . $block5_title . '</a></h1>';
+								else:
+									echo '<h1>' . $block5_title . '</h1>';
+								endif; ?>
+
+						</div>
+					</div>
+					<div class="row">
+						<h2 class="widgettitle"></h2>
+							<div class="medium-7 large-7 columns">
+								<?php
+								$block5_category = Kirki::get_option( 'pftk_opts', 'b5-categories');
+									$args = array (
+									'numberposts' => 1,
+									'cat' => $block5_category,
+									'posts_per_page' => 1,
+									'post_status' => 'publish'
+								);
+								$query = new WP_Query($args);
+								if ($query->have_posts()) {
+									while ($query->have_posts() ) {
+										$query->the_post();
+										echo '<h2><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h2>';
+										echo '<p>' . get_the_excerpt() . '</p>';
+									}
+									wp_reset_postdata();
+								}
+								?>
+							</div>
+							<div class="medium-5 large-5 columns" id="bloglist">
+							<?php
+								$args = array (
+								'numberposts' => 5,
+								'cat' => $block5_category,
+								'posts_per_page' => 5,
+								'post_status' => 'publish'
+							);
+							$query = new WP_Query($args);
+							if ($query->have_posts()) {
+								while ($query->have_posts() ) {
+									$query->the_post();
+									echo '<li><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></li>';
+								}
+								wp_reset_postdata();
+							}
+							?>
+							</div>
+					</div>
+				</div>
+		<?php endif ?>
 
 <?php get_footer(); ?>

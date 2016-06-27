@@ -15,73 +15,40 @@ taxonomy-shoes.php
 
 <?php get_header(); ?>
 
-      <div class="container">
+<div id="content">
 
-    		<div id="content" class="clearfix row">
+	<div id="inner-content" class="row">
+		<?php $breadcrumb_nav = Kirki::get_option( 'pftk_opts', 'breadcrumbs');
+		 if ($breadcrumb_nav == true):
+				echo custom_breadcrumb();
+			endif; ?>
+	    <main id="main" class="large-8 medium-8 columns first" role="main">
 
-					<div id="main" class="col-md-8 clearfix" role="main">
+		    <header>
+		    	<h1 class="page-title"><span><?php _e( 'Posts Categorized:', 'pressforward-turnkey-theme' ); ?></span> <?php single_cat_title(); ?></h1>
+		    </header>
 
-						<h1 class="archive-title h2"><span><?php _e( 'Posts Categorized:', 'bonestheme' ); ?></span> <?php single_cat_title(); ?></h1>
+			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-						<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+				<!-- To see additional archive styles, visit the /parts directory -->
+				<?php get_template_part( 'parts/loop', 'archive' ); ?>
 
-						<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?> role="article">
+			<?php endwhile; ?>
 
-							<header class="article-header">
+				<?php pressforward_tk_theme_page_navi(); ?>
 
-								<h3 class="h2"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
-								<p class="byline vcard"><?php
-									printf( __( 'Posted <time class="updated" datetime="%1$s" pubdate>%2$s</time> by <span class="author">%3$s</span> <span class="amp">&</span> filed under %4$s.', 'bonestheme' ), get_the_time( 'Y-m-j' ), get_the_time( __( 'F jS, Y', 'bonestheme' )), bones_get_the_author_posts_link(), get_the_term_list( get_the_ID(), 'custom_cat', "" ) );
-								?></p>
+			<?php else : ?>
 
-							</header> <?php // end article header ?>
+				<?php get_template_part( 'parts/content', 'missing' ); ?>
 
-							<section class="entry-content">
-								<?php the_excerpt( '<span class="read-more">' . __( 'Read More &raquo;', 'bonestheme' ) . '</span>' ); ?>
+			<?php endif; ?>
 
-							</section> <?php // end article section ?>
+	    </main> <!-- end #main -->
 
-							<footer class="article-footer">
+	    <?php get_sidebar(); ?>
 
-							</footer> <?php // end article footer ?>
+	</div> <!-- end #inner-content -->
 
-						</article> <?php // end article ?>
-
-						<?php endwhile; ?>
-
-								<?php if ( function_exists( 'bones_page_navi' ) ) { ?>
-										<?php bones_page_navi(); ?>
-								<?php } else { ?>
-										<nav class="wp-prev-next">
-												<ul class="clearfix">
-													<li class="prev-link"><?php next_posts_link( __( '&laquo; Older Entries', 'bonestheme' )) ?></li>
-													<li class="next-link"><?php previous_posts_link( __( 'Newer Entries &raquo;', 'bonestheme' )) ?></li>
-												</ul>
-										</nav>
-								<?php } ?>
-
-						<?php else : ?>
-
-								<article id="post-not-found" class="hentry clearfix">
-									<header class="article-header">
-										<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
-									</header>
-									<section class="entry-content">
-										<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
-									</section>
-									<footer class="article-footer">
-											<p><?php _e( 'This is the error message in the taxonomy-custom_cat.php template.', 'bonestheme' ); ?></p>
-									</footer>
-								</article>
-
-						<?php endif; ?>
-
-					</div> <?php // end #main ?>
-
-					<?php get_sidebar(); ?>
-
-    		</div> <?php // end #content ?>
-
-      </div> <?php // end ./container ?>
+</div> <!-- end #content -->
 
 <?php get_footer(); ?>
