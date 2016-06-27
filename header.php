@@ -47,7 +47,6 @@
 		<!-- Drop Google Analytics here -->
 		<!-- end analytics -->
 
-
 	</head>
 
 	<!-- Uncomment this line if using the Off-Canvas Menu -->

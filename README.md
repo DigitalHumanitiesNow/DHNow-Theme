@@ -1,26 +1,30 @@
-# Digital Humanities Now Theme
-This repository contains fork of the PressForward Turnkey Wordpress theme optimized for use with the [PressForward Plugin](http://www.pressforward.org).
-_**If you are planning to use the PressForward theme on your site, please download it from the [PressForward TurnKey Theme](https://github.com/PressForward/PressForward-TurnKey-Theme) repository rather than this repository.**_
+Find out more here: www.jointswp.com  
+Demo: www.jointswp.com/demo
 
-## Features
-+ A responsive slider
-+ Redux Options Framework
-+ Flat one-page design will multiple places to display recent posts from categories
-+ Designed to optimize the [PressForward](http://www.pressforward.org) plugin and display content in a useful way for [PressForward publications](http://www.pressforward.org/partners)
+Currently using Foundation 6.1.1.
 
-## Theme Requirements
-This standalone wordpress theme is based on [Brew](https://github.com/slightlyoffbeat/brew), a Bootstrap and HTML5 Wordpress theme by Dan Wild.
+### What is JointsWP?
+JointsWP is a blank WordPress theme built with Foundation 6, giving you all the power and flexibility you need to build complex, mobile friendly websites without having to start from scratch.
 
-## Installation
-_**Please note:**_ There have been reports of a known issue with uploading the theme due to the size of the file. If you get an error regarding the upload size limit and downloaded the theme prior to July 13th, please re-download the theme and try again. If you continue to get an error, please upload the theme via your ftp client or clone the theme into your wp-content/themes directory using git rather than through the WordPress theme upload option. We are working on a fix for this and will update the installation instruction when this issue has been resolved. While PHP sometimes prevents the upload of the theme due to its size, uploading the theme through FTP still works and the theme will still be fully functional.
+Starting its humble life as a fork of the popular theme Bones, JointsWP is now the foundation of thousands of websites across the globe.
 
-This theme is not avaialable in the WordPress Directory but it is functional and can be installed by downloading or cloning this repository into the Themes directory of your WordPress install. Setup can be completed by using the PressForward Options Panel in the WordPress dashboard.  [See the setup guide](https://github.com/PressForward/PressForward-TurnKey-Theme/wiki) for more information on how to setup the theme.
+### What comes with JointsWP?
+JointsWP comes pre-baked with all of the great features that are found in the Foundation framework – simply put, if it works in Foundation, it will work in JointsWP. The theme also includes:
 
-## Support
-Setup instructions and details on the theme's functionality can be found on our [wiki](https://github.com/PressForward/PressForward-TurnKey-Theme/wiki). For more information about this theme contact the PressForward team at info@pressforward.org or submit an issue to this repository.  
+- Foundation Navigation Options
+- Motion-UI
+- Grid archive templates
+- Translation Support
+- Bower and Gulp Support
+- And much, much more!
 
-Links to Documentation for Libraries Used and References:
-+ [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
-+ [Bones](http://themble.com/bones/)
-+ [Bootstrap](http://getbootstrap.com/)
-+ [Liquid Slider](http://liquidslider.com/)
+### What tools do I need to use JointsWP?
+You can use whatever you want – seriously. While the Sass version comes with Bower and Gulp support out of the box, you aren’t required to use those by any means. You can use CodeKit, Grunt, Compass or nothing at all. It’s completely up to you how you decide to build you theme – JointsWP won’t get in the way of your workflow.
+
+### Getting Started With Gulp
+- Install [node.js](https://nodejs.org).
+- Using the command line, navigate to your theme directory
+- Run npm install
+- Run gulp to confirm everything is working
+
+[Read more about how Gulp is used with JointsWP.](http://jointswp.com/docs/gulp/)
