@@ -1,119 +1,76 @@
 <!doctype html>
 
-<!--[if lt IE 7]><html <?php language_attributes(); ?> class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html <?php language_attributes(); ?> class="no-js lt-ie9 lt-ie8"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html <?php language_attributes(); ?> class="no-js lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!--> <html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
+  <html class="no-js"  <?php language_attributes(); ?>>
 
 	<head>
 		<meta charset="utf-8">
 
-		<?php // Google Chrome Frame for IE ?>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<!-- Force IE to use the latest rendering engine available -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<title><?php if (is_front_page()) { bloginfo('name'); } else { wp_title(''); } ?></title>
+		<!-- Mobile Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta class="foundation-mq">
 
-		<?php // mobile meta (hooray!) ?>
-		<meta name="HandheldFriendly" content="True">
-		<meta name="MobileOptimized" content="320">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-		<?php // icons & favicons (for more: http://www.jonathantneal.com/blog/understand-the-favicon/) ?>
-		<link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/library/images/apple-icon-touch.png">
-		<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/library/images/favicon.png">
-		<!--[if IE]>
-			<link rel="shortcut icon" href="<?php //echo get_template_directory_uri(); ?>/favicon.ico">
-		<![endif]-->
-		<?php // or, set /favicon.ico for IE10 win ?>
-		<meta name="msapplication-TileColor" content="#f01d4f">
-		<meta name="msapplication-TileImage" content="<?php echo get_template_directory_uri(); ?>/library/images/win8-tile-icon.png">
+		<!-- If Site Icon isn't set in customizer -->
+		<?php if ( ! function_exists( 'has_site_icon' ) || ! has_site_icon() ) { ?>
+			<!-- Icons & Favicons -->
+			<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png">
+			<link href="<?php echo get_template_directory_uri(); ?>/assets/images/apple-icon-touch.png" rel="apple-touch-icon" />
+			<!--[if IE]>
+				<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico">
+			<![endif]-->
+			<meta name="msapplication-TileColor" content="#f01d4f">
+			<meta name="msapplication-TileImage" content="<?php echo get_template_directory_uri(); ?>/assets/images/win8-tile-icon.png">
+	    	<meta name="theme-color" content="#121212">
+	    <?php } ?>
 
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-		<!-- load schedule js files -->
-		<?php
-		if ( is_page_template( 'page-schedule.php' ) ) {
-		echo '<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">';
-		}
-		?>
-		<?php // wordpress head functions ?>
-		<?php wp_head(); ?>
-		<?php // end of wordpress head ?>
 
-		<?php // drop Google Analytics Here ?>
-		<?php // end analytics ?>
+		<?php wp_head(); ?>
+    <?php
+    //block4 gradient
+    $b5_color_1 = get_theme_mod( 'b5-color-1', '' );
+    $b5_color_2 = get_theme_mod( 'b5-color-2', '' );
+    $slider_color_1 = get_theme_mod( 'slider-color-1', '' );
+    $slider_color_2 = get_theme_mod( 'slider-color-2', '' );
+    $dropdown_arrow = Kirki::get_option('pftk_opts', 'topbar-text');
+    echo '<style>.block-5{' . construct_gradient($b5_color_1, $b5_color_2) . '}';
+    echo '.slider-container {' . construct_gradient($slider_color_1, $slider_color_2) . '}';
+    if (!empty($dropdown_arrow)){
+    echo '.dropdown.menu > li.is-dropdown-submenu-parent > a::after { border-color:' . $dropdown_arrow . ' transparent transparent; }';
+    }
+    echo '</style>';
+    ?>
+
+
+		<!-- Drop Google Analytics here -->
+		<!-- end analytics -->
 
 
 	</head>
-	<style>
-	
-	<?php global $brew_options ?>
-	<?php echo '.slider {';
-	echo 'background: -webkit-linear-gradient(' . $brew_options['background-slider']['from'] . ',' . $brew_options['background-slider']['to'] . ');'; /* For Safari 5.1 to 6.0 */
-	echo 'background: -o-linear-gradient(' . $brew_options['background-slider']['from'] . ',' . $brew_options['background-slider']['to'] . ');'; /* For Opera 11.1 to 12.0 */
-	echo 'background: -moz-linear-gradient(' . $brew_options['background-slider']['from'] . ',' . $brew_options['background-slider']['to'] . ');'; /* For Firefox 3.6 to 15 */
-	echo 'background: linear-gradient(' . $brew_options['background-slider']['from'] . ',' . $brew_options['background-slider']['to'] . ');'; //* Standard syntax */
-  	echo '}';
-  	echo '.bloghome {';
-  	echo 'background: -webkit-linear-gradient(' . $brew_options['background-block5']['from'] . ',' . $brew_options['background-block5']['to'] . ');'; /* For Safari 5.1 to 6.0 */
-	echo 'background: -o-linear-gradient(' . $brew_options['background-block5']['from'] . ',' . $brew_options['background-block5']['to'] . ');'; /* For Opera 11.1 to 12.0 */
-	echo 'background: -moz-linear-gradient(' . $brew_options['background-block5']['from'] . ',' . $brew_options['background-block5t']['to'] . ');'; /* For Firefox 3.6 to 15 */
-	echo 'background: linear-gradient(' . $brew_options['background-block5']['from'] . ',' . $brew_options['background-block5']['to'] . ');'; //* Standard syntax */
-  	echo '}';
-	?>
 
-	</style>
-	<body <?php body_class(); ?>
+	<!-- Uncomment this line if using the Off-Canvas Menu -->
 
-    <header class="header">
-    <!-- <div class="container"> -->
-    <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <?php global $brew_options ?>
-      	<a class="navbar-brand" href="<?php bloginfo ('url');?>" title="<?php bloginfo('name')?>" rel="homepage">
-		<img  class="logo" src="<?php echo $brew_options['opt-media']['url']; ?> " alt ="logo" /></a>
-    </div>
+	<body <?php body_class(); ?>>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <!-- <ul class="nav navbar-nav"> -->
-         <?php bones_main_nav(); ?>
-      <!-- </ul> -->
-      <ul class="nav navbar-nav pfmenu">
-      	 	<li><a href="http://www.twitter.com/dhnow"><i class="fa fa-twitter"></i></a></li>
-	           	<li><a href="http://www.digitalhumanitiesnow.org/feed"><i class="fa fa-rss"></i></a></li>
-         <li class="dropdown" id="menu1">
-							             <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-							               <i class="fa fa-search"></i>
-							                <b class="caret"></b>
-							             </a>
-							             <div class="dropdown-menu dropdown-menu-right">
-							                <div id="search">
-							                	<form action="<?php echo home_url( '/' ); ?>" method="get" class="form-inline">
-							    					<fieldset>
-							    						<div class="input-group">
-							      							<input type="text" name="s" id="search" placeholder="Search for ..." value="<?php the_search_query(); ?>" class="form-control" />
-							      							<span class="input-group-btn">
-							        							<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-							      							</span>
-							    						</div> <!--close input group-->
-							    					</fieldset>
-												</form><!--close nav form-->
-								             </div>    
-							             </div> <!--close .dropdown-menu-->
-	           					</li><!-- close .drowpdown-->
 
-	           	<li><a href="http://pressforward.org"><img src="<?php echo get_stylesheet_directory_uri(); ?>/library/images/pfpublication.png" height="20" width="20"/></li></a> 
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-      <!-- </div> -->
-	</header> <?php // end header ?>
+  <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
+    <button class="menu-icon" type="button" data-toggle></button>
+    <div class="title-bar-title">Menu</div>
+  </div>
+
+  <header class="header" role="banner">
+
+      <!-- This navs will be applied to the topbar, above all content
+      To see additional nav styles, visit the /parts directory -->
+      <?php get_template_part( 'parts/nav', 'topbar' ); ?>
+
+      <div class="reveal" id="searchform" data-reveal>
+        <?php get_search_form(); ?>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+  </header> <!-- end .header -->

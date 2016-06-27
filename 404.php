@@ -1,34 +1,31 @@
 <?php get_header(); ?>
 
-      <div class="container">
+	<div id="content">
 
-        <div id="content">
+		<div id="inner-content" class="row">
 
-          <div id="main" class="col-md-8 col-md-offset-2 clearfix" role="main">
+			<main id="main" class="large-8 medium-8 columns" role="main">
 
-            <article id="post-not-found" class="hentry clearfix">
+				<article id="content-not-found">
 
-              <header class="article-header text-center">
+					<header class="article-header">
+						<h1><?php _e( 'Epic 404 - Article Not Found', 'pressforward-turnkey-theme' ); ?></h1>
+					</header> <!-- end article header -->
 
-                <h1>404. Whelp...This is embarrassing...</h1>
-                <img src="<?php bloginfo('template_directory'); ?>/library/images/hal.jpg" />
-                <p>We can't seem to find the page you are looking for.</p>
+					<section class="entry-content">
+						<p><?php _e( 'The article you were looking for was not found, but maybe try looking again!', 'pressforward-turnkey-theme' ); ?></p>
+					</section> <!-- end article section -->
 
-              </header> <?php // end article header ?>
+					<section class="search">
+					    <p><?php get_search_form(); ?></p>
+					</section> <!-- end search section -->
 
-              <section class="entry-content">
+				</article> <!-- end article -->
 
-                <p><?php get_search_form(); ?></p>
+			</main> <!-- end #main -->
 
-              </section> <?php // end article section ?>
+		</div> <!-- end #inner-content -->
 
-            </article> <?php // end article ?>
-
-          </div> <?php // end #main ?>
-
-        </div> <?php // end #content ?>
-
-      </div> <?php // end ./container ?>
-
+	</div> <!-- end #content -->
 
 <?php get_footer(); ?>

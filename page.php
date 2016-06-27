@@ -1,65 +1,28 @@
-<?php
-/*
-Template Name: Page -- Right Sidebar
-*/
-?>
-
 <?php get_header(); ?>
 
-      <div class="container">
+	<div id="content">
 
-        <div id="content" class="clearfix row">
-        
-          <div id="main" class="col-md-9 clearfix" role="main">
+		<div id="inner-content" class="row">
+			<?php $breadcrumb_nav = Kirki::get_option( 'pftk_opts', 'breadcrumbs');
+			 if ($breadcrumb_nav == true):
+					echo custom_breadcrumb();
+				endif; ?>
 
-          <?php get_template_part( 'breadcrumb' ); ?>
+		    <main id="main" class="large-8 medium-8 columns" role="main">
 
-            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-            
-            <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
-              
-              <header class="page-head article-header">
-                
-                <div class=""><h1 class="page-title entry-title" itemprop="headline"><?php the_title(); ?></h1></div>
-              
-              </header> <!-- end article header -->
-            
-              <section class="page-content entry-content clearfix" itemprop="articleBody">
-                <?php the_content(); ?>
-            
-              </section> <!-- end article section -->
-              
-              <footer>
-        
-                <?php the_tags('<p class="tags"><span class="tags-title">' . __("Tags","bonestheme") . ':</span> ', ', ', '</p>'); ?>
-                
-              </footer> <!-- end article footer -->
-            
-            </article> <!-- end article -->
-                        
-            <?php endwhile; ?>    
-            
-            <?php else : ?>
-            
-            <article id="post-not-found">
-                <header>
-                  <h1><?php _e("Not Found", "bonestheme"); ?></h1>
-                </header>
-                <section class="post_content">
-                  <p><?php _e("Sorry, but the requested resource was not found on this site.", "bonestheme"); ?></p>
-                </section>
-                <footer>
-                </footer>
-            </article>
-            
-            <?php endif; ?>
-        
-          </div> <!-- end #main -->
+				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-          <?php get_sidebar(); ?>
-      
-        </div> <!-- end #content -->
+			    	<?php get_template_part( 'parts/loop', 'page' ); ?>
 
-      </div> <!-- end .container -->
+			    <?php endwhile; endif; ?>
+
+
+			</main> <!-- end #main -->
+
+		    <?php get_sidebar(); ?>
+
+		</div> <!-- end #inner-content -->
+
+	</div> <!-- end #content -->
 
 <?php get_footer(); ?>

@@ -1,76 +1,32 @@
 <?php get_header(); ?>
 
-      <div class="container">
+	<div id="content">
 
-  			<div id="content" class="row clearfix">
+		<div id="inner-content" class="row">
 
-					<div id="main" class="col-md-8 clearfix" role="main">
+		    <main id="main" class="large-8 medium-8 columns" role="main">
 
-            <!-- UNCOMMENT FOR BREADCRUMBS
-            <?php if ( function_exists('custom_breadcrumb') ) { custom_breadcrumb(); } ?> -->
+			    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-					<h1 class="archive-title h2"><?php post_type_archive_title(); ?></h1>
+					<!-- To see additional archive styles, visit the /parts directory -->
+					<?php get_template_part( 'parts/loop', 'archive' ); ?>
 
-						<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+				<?php endwhile; ?>
 
-						<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?> role="article">
+					<?php pressforward_tk_theme_page_navi(); ?>
 
-							<header class="article-header">
+				<?php else : ?>
 
-								<h3 class="h2"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
-								<p class="byline vcard"><?php
-									printf( __( 'Posted <time class="updated" datetime="%1$s" pubdate>%2$s</time> by <span class="author">%3$s</span>.', 'bonestheme' ), get_the_time( 'Y-m-j' ), get_the_time( __( 'F jS, Y', 'bonestheme' ) ), bones_get_the_author_posts_link());
-								?></p>
+					<?php get_template_part( 'parts/content', 'missing' ); ?>
 
-							</header> <?php // end article header ?>
+				<?php endif; ?>
 
-							<section class="entry-content clearfix">
+		    </main> <!-- end #main -->
 
-								<?php the_excerpt(); ?>
+		    <?php get_sidebar(); ?>
 
-							</section> <?php // end article section ?>
+		</div> <!-- end #inner-content -->
 
-							<footer class="article-footer">
-
-							</footer> <?php // end article footer ?>
-
-						</article> <?php // end article ?>
-
-						<?php endwhile; ?>
-
-								<?php if ( function_exists( 'bones_page_navi' ) ) { ?>
-										<?php bones_page_navi(); ?>
-								<?php } else { ?>
-										<nav class="wp-prev-next">
-												<ul class="clearfix">
-													<li class="prev-link"><?php next_posts_link( __( '&laquo; Older Entries', 'bonestheme' )) ?></li>
-													<li class="next-link"><?php previous_posts_link( __( 'Newer Entries &raquo;', 'bonestheme' )) ?></li>
-												</ul>
-										</nav>
-								<?php } ?>
-
-						<?php else : ?>
-
-								<article id="post-not-found" class="hentry clearfix">
-									<header class="article-header">
-										<h1><?php _e( 'Oops, Post Not Found!', 'bonestheme' ); ?></h1>
-									</header>
-									<section class="entry-content">
-										<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
-									</section>
-									<footer class="article-footer">
-											<p><?php _e( 'This is the error message in the custom posty type archive template.', 'bonestheme' ); ?></p>
-									</footer>
-								</article>
-
-						<?php endif; ?>
-
-					</div> <?php // end #main ?>
-
-					<?php get_sidebar(); ?>
-
-  			</div> <?php // end #content ?>
-
-      </div> <?php // end ./container ?> 
+	</div> <!-- end #content -->
 
 <?php get_footer(); ?>
