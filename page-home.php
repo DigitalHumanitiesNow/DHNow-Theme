@@ -142,8 +142,12 @@ Block 2
 											 echo '<h1 class="widgettitle">' . $b2c3_title . '</h1>';
 										 } ?>
 										 <div class="textwidget">
-											 <?php $b2c3_text = Kirki::get_option( 'pftk_opts', 'b2c3-text');
-											 echo '<p>' . $b2c3_text . '</p>' ?>
+											 <!-- DHNOW SPECIFIC CHANGE. SHOW LOGIN/REGISTER BUTTONS -->
+											 <?php if (is_user_logged_in() ) {
+                					echo '<a class="button" href="' .get_dashboard_url() . '/admin.php?page=pf-menu" role="button">Nominate Content</a>';
+              						} else {
+                					echo '<a class="button" href="' . get_site_url() . '/login" role="button">Log In</a>';
+              						} ?>
 										 </div>
 									 </div>
 

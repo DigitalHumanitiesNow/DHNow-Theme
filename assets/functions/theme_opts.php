@@ -324,16 +324,7 @@ Kirki::add_field( 'pftk_opts', array(
       )
     )
   ) );
-  Kirki::add_field( 'b2c3-text', array(
-      'type'        => 'textarea',
-      'settings'    => 'b2c3-text',
-      'label'       => __( 'Third Column Text', 'pressforward-turnkey-theme' ),
-      'tooltip'     => __( 'Enter the text that will appear in column three of block 2', 'pressforward-turnkey-theme' ),
-      'default'     => __( 'This text is entered in the "textarea" control.', 'pressforward-turnkey-theme' ),
-      'section'     => 'block2',
-      'default'     => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet efficitur elit.',
-      'priority'    => 10,
-  ) );
+
 
 //Column 4 -- Block2
 Kirki::add_field( 'pftk_opts', array(
