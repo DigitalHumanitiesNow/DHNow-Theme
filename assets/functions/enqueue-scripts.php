@@ -19,7 +19,7 @@ function site_scripts() {
 
     wp_enqueue_script( 'strength-js', get_template_directory_uri() . '/assets/js/strength.js', array('jquery'), '', true);
     wp_enqueue_style( 'strength-css', get_template_directory_uri(). '/assets/css/strength.css', array(), '', 'all');
-
+    wp_enqueue_script( 'password-strength-meter' );
     // Comment reply script for threaded comments
     if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
       wp_enqueue_script( 'comment-reply' );
