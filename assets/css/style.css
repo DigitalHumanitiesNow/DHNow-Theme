@@ -2631,7 +2631,7 @@ select {
   border: 1px solid #333333;
   border-radius: 0;
   display: block;
-  font-size: 16rem;
+  font-size: 1rem;
   padding: 1rem;
   position: absolute;
   visibility: hidden;
