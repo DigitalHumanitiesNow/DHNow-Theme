@@ -40,7 +40,9 @@
     <div class="medium-6 columns">
       <label for="vb_pass" class="sr-only">Choose Password</label>
       <input type="password" name="vb_pass" id="vb_pass" value="" placeholder="Choose Password" class="form-control" />
-      <span class="help-block">Minimum 8 characters</span>
+      <div id="result" class="callout">
+      <p>Please pick a password with a miniumum of 8 characters.</p>
+    </div>
     </div>
   </div>
 

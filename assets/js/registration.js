@@ -1,3 +1,71 @@
+/*
+	jQuery document ready.
+*/
+jQuery(document).ready(function($) {
+
+	/*
+		assigning keyup event to password field
+		so everytime user type code will execute
+	*/
+
+	$('#vb_pass').keyup(function()
+	{
+		$('#result').html(checkStrength($('#vb_pass').val()))
+	})
+
+	/*
+		checkStrength is function which will do the
+		main password strength checking for us
+	*/
+
+	function checkStrength(password)
+	{
+		//initial strength
+		var strength = 0
+
+		//if the password length is less than 8, return message.
+		if (password.length < 8) {
+			$('#result').removeClass()
+			$('#result').addClass('callout alert')
+			return 'Too short'
+		}
+
+		//length is ok, lets continue.
+
+		//if length is 9 characters or more, increase strength value
+		if (password.length > 9) strength += 1
+
+		//if password contains both lower and uppercase characters, increase strength value
+		if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/))  strength += 1
+
+		//if it has numbers and characters, increase strength value
+		if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/))  strength += 1
+
+		//if it has one special character, increase strength value
+		if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/))  strength += 1
+
+		//if it has two special characters, increase strength value
+		if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+
+		//now we have calculated strength value, we can return messages
+
+		//if value is less than 2
+		if (strength < 2 )
+		{
+			$('#result').removeClass()
+			$('#result').addClass('callout alert')
+			return 'This password is too weak. Please include both upper and lowercase characters, one special character, and one number.'
+		}
+		else if (strength >= 3 )
+		{
+			$('#result').removeClass()
+			$('#result').addClass('callout success')
+			return 'This is a strong password.'
+		}
+	}
+});
+
+
 jQuery(document).ready(function($) {
   var form = document.getElementById('reg-form');
   /**
