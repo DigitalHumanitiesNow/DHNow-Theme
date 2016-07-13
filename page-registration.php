@@ -16,7 +16,7 @@ Template Name: Contact
 				endif; ?>
 		    <main id="main" class="large-offset-1 large-10 large-offset-1 columns" role="main">
           <?php while (have_posts()) : the_post() ?>
-              <?php get_template_part('parts/registration', 'registration') ?>
+              <?php get_template_part('parts/content', 'registration') ?>
           <?php endwhile ?>
 
 

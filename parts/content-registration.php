@@ -72,7 +72,7 @@
 
     <?php wp_nonce_field('vb_new_user','vb_new_user_nonce', true, true ); ?>
 
-    <input type="submit" class="btn btn-primary" id="btn-new-user" value="Register" />
+    <input type="submit" class="button" id="btn-new-user" value="Register" />
   </form>
 
     <div class="indicator">Please wait...</div>
