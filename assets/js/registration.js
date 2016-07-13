@@ -2,7 +2,7 @@
 	jQuery document ready.
 */
 jQuery(document).ready(function($) {
-
+  var strength = 0
 	/*
 		assigning keyup event to password field
 		so everytime user type code will execute
@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
 	function checkStrength(password)
 	{
 		//initial strength
-		var strength = 0
+
 
 		//if the password length is less than 8, return message.
 		if (password.length < 8) {
@@ -63,17 +63,21 @@ jQuery(document).ready(function($) {
 			return 'This is a strong password.'
 		}
 	}
-});
 
 
-jQuery(document).ready(function($) {
+
+
   var form = document.getElementById('reg-form');
   /**
    * When user clicks on button...
    *
    */
   $('#btn-new-user').click( function(event) {
-      var elements = this.elements;
+    if (strength <= 2) {
+      $('.result-message').html('You have problems.'); // Add success message to results div
+      die;
+    }
+    var elements = this.elements;
 
     /**
      * Prevent default action, so when user clicks button he doesn't navigate away from page
@@ -121,6 +125,7 @@ console.log(checkboxValues);
       volunteerdates: checkboxValues,
     };
     console.log(data);
+
     // Do AJAX request
     $.post( ajax_url, data, function(response) {
 
