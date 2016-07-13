@@ -17,6 +17,9 @@ function site_scripts() {
     // Register FontAwesome
     wp_enqueue_style( 'prefix-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.5.0' );
 
+    wp_enqueue_script( 'strength-js', get_template_directory_uri() . '/assets/js/strength.js', array('jquery'), '', true);
+    wp_enqueue_style( 'strength-css', get_template_directory_uri(). '/assets/css/strength.css', array(), '', 'all');
+
     // Comment reply script for threaded comments
     if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
       wp_enqueue_script( 'comment-reply' );
