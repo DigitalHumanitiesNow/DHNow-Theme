@@ -66,7 +66,7 @@
                 <label for="vb_pass">Password
                 <input type="password" name="vb_pass" id="vb_pass" aria-describedby="passHelpTex" required>
                 <span class="form-error">
-                  I'm required!
+                  Your password must match the requirements.
                 </span>
               </label>
               <p class="help-text" id="emailHelpTex">Choose a password.</p>
@@ -76,7 +76,7 @@
 
             <div class="small-12 medium-6 columns">
               <label for="vb_pass">Re-enter Password
-              <input type="password" name="vb_pass2" id="vb_pass2" aria-describedby="passHelpTex2" required pattern="alpha_numeric" data-equalto="vb_pass">
+              <input type="password" name="vb_pass2" id="vb_pass2" aria-describedby="passHelpTex2" required data-equalto="vb_pass">
               <span class="form-error">
                 Passwords must match.
               </span>

@@ -50,6 +50,10 @@ function checkPasswordStrength( $pass1,
     return strength;
 }
 
+
+
+
+
 jQuery( document ).ready( function( $ ) {
     // Binding to trigger checkPasswordStrength
     $( 'body' ).on( 'keyup', 'input[name=password]', 'input[name=password_retyped]',
