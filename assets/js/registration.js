@@ -81,9 +81,9 @@ console.log(checkboxValues);
           $('.vb-registration-form').remove();
           $('#successfulregistration').show();
         } else {
-          $('.result-message').html( response ); // If there was an error, display it in results div
-          $('.result-message').addClass('alert-danger'); // Add class failed to results div
-          $('.result-message').show(); // Show results div
+          $('.errormessage').html( response );
+          //need to append response here and then display #unsuccessfulregistration
+
         }
       }
     });

@@ -210,5 +210,10 @@
       <p>Please look for an email from us confirming your registration. We will confirm your account within 3-5 business days.</p>
     </div>
     </div>
+    <div class="medium-12 columns"  id="unsuccessfulregistration" style="display:none;" >
+      <div class="callout danger">
+      <h2>There was a problem...</h2>
+    </div>
+    </div>
 
 </article>
