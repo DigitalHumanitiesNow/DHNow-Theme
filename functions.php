@@ -858,9 +858,14 @@ function vb_reg_new_user() {
     $username = $_POST['user'];
     $password = $_POST['pass'];
     $email    = $_POST['mail'];
-    $name     = $_POST['name'];
-    $nick     = $_POST['nick'];
+    $fname    = $_POST['firstname'];
+    $lname    = $_POST['lastname'];
+    $instaffil = $_POST['institution'];
+    $loc       = $_POST['location'];
+    $twitter  = $_POST['twitterhandle'];
+    $bio  = $_POST['userbio'];
     $voldates = $_POST['volunteerdates'];
+
 
     /**
      * IMPORTANT: You should make server side validation here!
@@ -871,8 +876,9 @@ function vb_reg_new_user() {
         'user_login' => $username,
         'user_pass'  => $password,
         'user_email' => $email,
-        'first_name' => $name,
-        'nickname'   => $nick,
+        'first_name' => $fname,
+        'last_name' => $lname,
+        'description' => $bio
     );
 
     $user_id = wp_insert_user( $userdata ) ;

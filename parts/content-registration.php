@@ -84,6 +84,7 @@
             <p class="help-text" id="passHelpTex2">Re-enter your password to confirm.</p>
             </div>
             </div>
+            <?php wp_nonce_field('vb_new_user','vb_new_user_nonce', true, true ); ?>
 
 
     <!--  //////////////////
@@ -122,9 +123,9 @@
           <div class="row">
             <div class="small-12 medium-4 columns">
               <label for="vb_institutionalaffiliation">Institutional Affiliation
-              <input type="text" name="vb_institutionalaffiliation" id="vb_institutionalaffiliation" aria-describedby="institutionHelpTex">
+              <input type="text" name="vb_institutionalaffiliation" id="vb_institutionalaffiliation" aria-describedby="institutionHelpTex" required>
             </label>
-            <p class="help-text" id="usernameHelpTex">Enter an institution.</p>
+            <p class="help-text" id="institutionalHelpTex">Enter an institution.</p>
           </div>
 
           <!-- Location -->
@@ -133,7 +134,7 @@
               <label for="vb_location">Location
               <input type="text" name="vb_location" id="vb_location" aria-describedby="locationHelpTex">
             </label>
-            <p class="help-text" id="usernameHelpTex">Tell us where you're at.</p>
+            <p class="help-text" id="locationHelpTex">Tell us where you're at.</p>
           </div>
 
           <div class="small-12 medium-4 columns">
@@ -193,12 +194,16 @@
   <!-- SUBMIT/RESET -->
   <div class="row">
     <fieldset class="large-6 columns">
-      <button class="button" type="submit" value="Submit">Submit</button>
+      <button class="button" type="submit" id="btn-new-user" value="Submit">Submit</button>
     </fieldset>
     <fieldset class="large-6 columns">
       <button class="button" type="reset" value="Reset">Reset</button>
     </fieldset>
   </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <span class=".result-message"></span>
+    </div>
 
       </form>
 
