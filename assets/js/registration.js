@@ -78,9 +78,8 @@ console.log(checkboxValues);
 
         if( response === '1' ) {
           // If user is created
-          $('.result-message').html('Your submission is complete.'); // Add success message to results div
-          $('.result-message').addClass('alert-success'); // Add class success to results div
-          $('.result-message').show(); // Show results div
+          $('.vb-registration-form').remove();
+          $('#successfulregistration').show();
         } else {
           $('.result-message').html( response ); // If there was an error, display it in results div
           $('.result-message').addClass('alert-danger'); // Add class failed to results div

@@ -200,13 +200,15 @@
       <button class="button" type="reset" value="Reset">Reset</button>
     </fieldset>
   </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <span class=".result-message"></span>
-    </div>
-
+</div>
       </form>
 
 
+    <div class="medium-12 columns"  id="successfulregistration" style="display:none;" >
+      <div class="callout success">
+      <h2>Thank you for registering.</h2>
+      <p>Please look for an email from us confirming your registration. We will confirm your account within 3-5 business days.</p>
+    </div>
+    </div>
 
 </article>
