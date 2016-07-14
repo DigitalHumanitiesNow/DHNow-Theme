@@ -9,27 +9,81 @@
           <p><i class="fi-alert"></i> There are some errors in your form.</p>
         </div>
 
-        <!-- //Name(r)//// -->
+        <div class="row">
+          <div class="small-12 medium-12 columns">
+            <h2>Account Info</h2>
+          </div>
+        </div>
+
+        <!-- USERNAME (r) -->
 
         <div class="row">
-          <div class="small-12 columns">
-            <label for="vb_name">Name
-            <input type="text" name="vb_name" id="vb_name" aria-describedby="nameHelpTex" required>
+          <div class="small-12 medium-12 columns">
+            <label for="vb_username">Username
+            <input type="text" name="vb_username" id="vb_username" aria-describedby="usernameHelpTex" required>
+            <span class="form-error">
+              You must enter a username.
+            </span>
           </label>
-          <p class="help-text" id="nameHelpTex">Enter your name here.</p>
+          <p class="help-text" id="usernameHelpTex">Enter a username here.</p>
         </div>
       </div>
 
       <!-- //EMAIL(r)// -->
 
         <div class="row">
-          <div class="small-12 columns">
+          <div class="small-12 medium-6 columns">
             <label for="vb_email">Email
             <input type="email" name="vb_email" id="vb_email" aria-describedby="emailHelpTex" required>
           </label>
           <p class="help-text" id="emailHelpTex">Enter a valid email address here.</p>
         </div>
+
+
+
+        <div class="small-12 medium-6 columns">
+          <label for="vb_email-confirm">Confirm Email
+          <input type="email" name="vb_email-confirm" id="vb_email-confirm" aria-describedby="email-confirmHelpTex" data-equalto="vb_email" required>
+          <span class="form-error">
+            Email addresses don't match.
+          </span>
+        </label>
+        <p class="help-text" id="emailHelpTex">Enter a valid email address here.</p>
       </div>
+    </div>
+
+
+
+
+      <!-- About You -->
+      <div class="row">
+        <div class="small-12 medium-12 columns">
+          <h2>About You</h2>
+        </div>
+      </div>
+      <!-- First/Last Name -->
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label for="vb_FirstName">First Name
+          <input type="text" name="vb_FirstName" id="vb_FirstName" aria-describedby="FirstNameHelpTex" required>
+          <span class="form-error">
+            Your first name is required.
+          </span>
+        </label>
+      </div>
+
+      <div class="small-12 medium-6 columns">
+        <label for="vb_LastName">Last Name
+        <input type="text" name="vb_LastName" id="vb_LastName" aria-describedby="LastNameHelpTex" required>
+        <span class="form-error">
+          Your last name is required.
+        </span>
+      </label>
+    </div>
+    </div>
+
+
+
 
       <!-- //PASSWORD(r)// -->
 
@@ -114,6 +168,15 @@
 </div>
 </div>
 
+<!-- Opt Out -->
+<div class="row">
+<fieldset class="large-6 columns">
+      <legend>Opt Out</legend>
+      <input type="radio" name="optout" value="true" id="optouttrue"><label for="pocketsRed">Yes</label>
+      <input type="radio" name="optout" value="false" id="optoutfalse" checked><label for="pocketsBlue">No</label>
+</fieldset>
+</div>
+
 <!-- Volunteer Dates -->
 <div class="row">
 <fieldset class="small-12 columns">
@@ -124,6 +187,7 @@
 <p class="help-text">Editor-at-Large weeks run from x to x. Use these boxes to select the weeks you would like to volunteer as an Editor-at-Large. You can always edit these in your profile.</p>
 </fieldset>
 </div>
+
   <!-- SUBMIT/RESET -->
   <div class="row">
     <fieldset class="large-6 columns">
