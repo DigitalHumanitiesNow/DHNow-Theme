@@ -75,13 +75,10 @@
 
 <div class="row">
   <div class="small-12 columns">
-    <label for="vb_username">Username
-    <input type="text" name="vb_username" id="vb_username" aria-describedby="usernameHelpTex" required>
-    <span class="form-error">
-      You must enter a username.
-    </span>
+    <label for="vb_institutionalaffiliation">Institutional Affiliation
+    <input type="text" name="vb_institutionalaffiliation" id="vb_institutionalaffiliation" aria-describedby="institutionHelpTex">
   </label>
-  <p class="help-text" id="usernameHelpTex">Enter a username here.</p>
+  <p class="help-text" id="usernameHelpTex">If you enter a institution and choose not to opt out, this information will be displayed on Editor's Choice posts for the weeks you serve as an Editor-At-Large.</p>
 </div>
 </div>
 
@@ -89,16 +86,44 @@
 
 <div class="row">
   <div class="small-12 columns">
-    <label for="vb_username">Username
-    <input type="text" name="vb_username" id="vb_username" aria-describedby="usernameHelpTex" required>
-    <span class="form-error">
-      You must enter a username.
-    </span>
+    <label for="vb_location">Location
+    <input type="text" name="vb_location" id="vb_location" aria-describedby="locationHelpTex">
   </label>
-  <p class="help-text" id="usernameHelpTex">Enter a username here.</p>
+  <p class="help-text" id="usernameHelpTex">Tell us where you're at.</p>
 </div>
 </div>
 
+<!-- Twitter Handle -->
+
+<div class="row">
+  <div class="small-12 columns">
+    <label for="vb_twitter">Twitter
+    <input type="text" name="vb_twitter" id="vb_twitter" aria-describedby="twitterHelpTex">
+  </label>
+  <p class="help-text" id="usernameHelpTex">Enter your twitter handle. (i.e. @dhnow)</p>
+</div>
+</div>
+
+<!-- Bio -->
+<div class="row">
+  <div class="small-12 columns">
+    <label for="vb_bio">Bio
+    <textarea name="vb_bio" id="vb_bio" aria-describedby="bioHelpTex"></textarea>
+  </label>
+  <p class="help-text" id="bioHelpTex">Enter a bio.</p>
+</div>
+</div>
+
+<!-- Volunteer Dates -->
+<div class="row">
+<fieldset class="small-12 columns">
+<legend>Sign Up Dates</legened><br>
+<input id="checkbox1" type="checkbox" value="27" name="signup" id="signup"><label for="checkbox1">Checkbox 1</label>
+<input id="checkbox2" type="checkbox" value="28" name="signup" id="signup"><label for="checkbox2">Checkbox 2</label>
+<input id="checkbox3" type="checkbox" value="29" name="signup" id="signup"><label for="checkbox3">Checkbox 3</label>
+<p class="help-text">Editor-at-Large weeks run from x to x. Use these boxes to select the weeks you would like to volunteer as an Editor-at-Large. You can always edit these in your profile.</p>
+</fieldset>
+</div>
   <!-- SUBMIT/RESET -->
   <div class="row">
     <fieldset class="large-6 columns">
