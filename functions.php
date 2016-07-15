@@ -45,8 +45,6 @@ require_once(get_template_directory().'/assets/functions/theme_opts.php');
 
 
 
-
-
 function custom_breadcrumb() {
   if(!is_home()) {
     echo '<nav aria-label="You are here:" role="navigation">';
