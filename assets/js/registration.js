@@ -80,10 +80,13 @@ console.log(checkboxValues);
           // If user is created
           $('.vb-registration-form').remove();
           $('#successfulregistration').show();
+          console.log(response);
         } else {
-          $('.errormessage').html( response );
+          $('.vb-registration-form').remove();
+          $('#unsuccessfulregistration').show();
+          $('.responsemsg').append(response);
           //need to append response here and then display #unsuccessfulregistration
-
+          console.log(response);
         }
       }
     });

@@ -211,8 +211,9 @@
     </div>
     </div>
     <div class="medium-12 columns"  id="unsuccessfulregistration" style="display:none;" >
-      <div class="callout danger">
+      <div class="callout alert">
       <h2>There was a problem...</h2>
+      <p class="responsemsg"></p>
     </div>
     </div>
 
