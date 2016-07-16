@@ -865,10 +865,15 @@ function vb_reg_new_user() {
     $voldates = $_POST['volunteerdates'];
 
 
-    /**
-     * IMPORTANT: You should make server side validation here!
-     *
-     */
+  $username = sanitize_text_field($username);
+  $fname = sanitize_text_field($fname);
+  $lname = sanitize_text_field($lname);
+  $instaffil = sanitize_text_field($instaffil);
+  $loc = sanitize_text_field($loc);
+  $twitter  = sanitize_text_field($twitter);
+  $bio  = sanitize_text_field($bio);
+
+
 
     $userdata = array(
         'user_login' => $username,
