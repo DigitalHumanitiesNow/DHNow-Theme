@@ -876,7 +876,8 @@ function vb_reg_new_user() {
         'user_email' => $email,
         'first_name' => $fname,
         'last_name' => $lname,
-        'description' => $bio
+        'description' => $bio,
+        'role' => 'pending'
     );
 
     $user_id = wp_insert_user( $userdata ) ;
@@ -895,6 +896,59 @@ function vb_reg_new_user() {
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
+function rolescheck() {
+    $default_caps = array(
+        'read' => false,
+        'upload_files' => false,
+        'manage_options' => false,
+        'manage_members' => false,
+        'is_premium_member' => false,
+        'is_approved_member' => false,
+    );
+}
+add_action('init', 'rolescheck');
+
+
+/**
+ * Authenticates by username or email and only allow members to login
+ *
+ * @param    user
+ * @param    username
+ * @param    password
+ * @return    bool
+ */
+function auth_email_username( $user, $username, $password ) {
+    $field = is_email($username) ? 'email' : 'login';
+    $user = get_user_by($field, $username);
+    if ( $user && !is_wp_error($user) )
+            $username = $user->user_login;
+    if ( user_can($user, 'administrator') || user_can($user, 'contributor')) {
+            return wp_authenticate_username_password( null, $username, $password );
+    }
+    return new WP_Error('login', __('You do not have permission to login at this time.'));
+}
+add_filter( 'authenticate', 'auth_email_username', 20, 3 );
+
+function debug_to_console( $data ) {
+
+    if ( is_array( $data ) )
+        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+    else
+        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+
+    echo $output;
+}
+
+function user_role_update( $user_id, $new_role ) {
+        $site_url = get_bloginfo('wpurl');
+        $user_info = get_userdata( $user_id );
+        $to = $user_info->user_email;
+        $subject = "Role changed: ".$site_url."";
+        $message = "Hello " .$user_info->display_name . " your role has changed on ".$site_url.", congratulations you are now an " . $new_role;
+        wp_mail($to, $subject, $message);
+        debug_to_console($message);
+}
+add_action( 'set_user_role', 'user_role_update', 10, 2);
 
 
 ?>
