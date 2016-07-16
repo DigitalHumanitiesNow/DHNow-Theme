@@ -976,6 +976,38 @@ function user_role_update( $user_id, $new_role ) {
 
 }
 add_action( 'set_user_role', 'user_role_update', 10, 2);
+// ADD RECAPTCHA SETTINGS FIELDS
+add_filter( 'admin_init' , 'register_settings_fields', 1);
+function register_settings_fields() {
+    // Create settings fields for the two keys used by reCAPTCHA
+    register_setting( 'general', 'personalize-login-recaptcha-site-key' );
+    register_setting( 'general', 'personalize-login-recaptcha-secret-key' );
+
+    add_settings_field(
+        'personalize-login-recaptcha-site-key',
+        '<label for="personalize-login-recaptcha-site-key">' . __( 'reCAPTCHA site key' , 'personalize-login' ) . '</label>',
+      'render_recaptcha_site_key_field',
+        'general'
+    );
+
+    add_settings_field(
+        'personalize-login-recaptcha-secret-key',
+        '<label for="personalize-login-recaptcha-secret-key">' . __( 'reCAPTCHA secret key' , 'personalize-login' ) . '</label>',
+        'render_recaptcha_secret_key_field',
+        'general'
+    );
+}
+
+function render_recaptcha_site_key_field() {
+    $value = get_option( 'personalize-login-recaptcha-site-key', '' );
+    echo '<input type="text" id="personalize-login-recaptcha-site-key" name="personalize-login-recaptcha-site-key" value="' . esc_attr( $value ) . '" />';
+}
+
+function render_recaptcha_secret_key_field() {
+    $value = get_option( 'personalize-login-recaptcha-secret-key', '' );
+    echo '<input type="text" id="personalize-login-recaptcha-secret-key" name="personalize-login-recaptcha-secret-key" value="' . esc_attr( $value ) . '" />';
+}
+
 
 
 ?>
