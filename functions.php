@@ -905,6 +905,9 @@ function rolescheck() {
         'is_premium_member' => false,
         'is_approved_member' => false,
     );
+    if (! get_role( 'pending' ) ) {
+       add_role('pending', 'Pending Approval', $default_caps);
+   }
 }
 add_action('init', 'rolescheck');
 
