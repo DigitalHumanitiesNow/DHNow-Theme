@@ -943,11 +943,10 @@ function user_role_update( $user_id, $new_role ) {
         $to = $user_info->user_email;
         $subject = "Role changed: ".$site_url."";
         $message = "Hello " .$user_info->display_name . " your role has changed on     ".$site_url.", congratulations you are now an " . $new_role;
-        $headers = "Cc: dhnow@pressforward.org";
-        wp_mail($to, $subject, $message, $headers);
+        wp_mail($to, $subject, $message);
         $adminnotification_to = "dhnow@pressforward.org";
         $adminnotification_subj = "Role changed:".$site_url."";
-        $adminnotification_msg = "The following user:" . $user_info->display_name . " has been upgraded to " . $new_role . "on " . date("Y-m-d h:i:sa") . ". ";
+        $adminnotification_msg = "The following user: " . $user_info->display_name . " has been upgraded to " . $new_role . " on " . date("Y-m-d h:i:sa") . ". ";
         wp_mail($adminnotification_to, $adminnotification_subj, $adminnotification_msg);
     }
 
