@@ -898,10 +898,11 @@ add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
 function notifyadmin($email, $username, $fname, $lastname) {
+  $headers[] = 'Content-Type: text/html; charset=UTF-8';
   $to = "dhnow@pressforward.org";
   $subject = "New User Registration";
   $message = "A new user has registered. Here are the users details: <br> Username: " . $username . "<br>Email: " . $email . "<br>Name: " . $firstname . " " . $lastname . "<br> Please login to approve this user.";
-  wp_mail($to, $subject, $message);
+  wp_mail($to, $subject, $message, $headers);
 }
 
 function rolescheck() {
