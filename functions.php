@@ -901,9 +901,17 @@ function notifyadmin($email, $username, $fname, $lastname) {
   $headers[] = 'Content-Type: text/html; charset=UTF-8';
   $to = "dhnow@pressforward.org";
   $subject = "New User Registration";
-  $message = "A new user has registered. Here are the users details: <br> Username: " . $username . "<br>Email: " . $email . "<br>Name: " . $firstname . " " . $lastname . "<br> Please login to approve this user.";
+  $message = "A new user has registered. Here are the users details: <br> Username: " . $username . "<br>Email: " . $email . "<br>Name: " . $fname . " " . $lname . "<br> Please login to approve this user.";
   wp_mail($to, $subject, $message, $headers);
 }
+
+function notifyuser($email, $fname, $lname) {
+  $headers[] = 'Content-Type: text/html; charset=UTF-8';
+  $subject = "Thank You for Registering for Digital Humanities Now";
+  $message = "Dear " . $fname . " " . $lname ", <br>" . "Thank you for signing up to edit Digital Humanities Now. A request for approval has been sent to the site manager for DHNow. You will receive a confirmation email with your login information for digitalhumanitiesnow.org and instructions for using the PressForward plugin to nominate content for DHNow within the next 24-48 hours. If you have any questions, please email us at dhnow@pressforward.org or find us on Twitter @dhnow.<br>Thank You,<br>The Managing Editors of Digital Humanities Now";
+  wp_mail($email, $subject, $message, $headers);
+}
+
 
 function rolescheck() {
     $default_caps = array(
@@ -951,7 +959,8 @@ function user_role_update( $user_id, $new_role ) {
 
         $to = $user_info->user_email;
         $subject = "Role changed: ".$site_url."";
-        $message = "Hello " .$user_info->display_name . " your role has changed on     ".$site_url.", congratulations you are now an " . $new_role;
+        // $message = "Hello " .$user_info->display_name . " your role has changed on     ".$site_url.", congratulations you are now an " . $new_role;
+        $message = "Dear " . $user_info->display_name . ",<br>" . "Thank you for signing up to edit Digital Humanities Now. Your request for an account has been approved, and you can log into the site and set up your user profile by clicking the link below. You will receive an instructional email the week before your first week as editor with instructions on how to use the PressForward plugin and the Nominate This bookmarklet to begin nominating content for DHNow.<br> If you would like to learn more about the duties of an Editor-at-Large before that date, please visit the Editors-at-Large corner of Digital Humanities Now to read through instructions on how to choose and nominate content, and to see the schedule of Editors-at-Large for the current semester.<br>Thank you,<br>Managing Editors, Digital Humanities Now"
         wp_mail($to, $subject, $message);
         $adminnotification_to = "dhnow@pressforward.org";
         $adminnotification_subj = "Role changed:".$site_url."";
