@@ -885,7 +885,8 @@ function vb_reg_new_user() {
     // Return
     if( !is_wp_error($user_id) ) {
         echo '1';
-        notifyadmin($email, $username, $fname, $lastname);
+        notifyadmin($email, $username, $fname, $lname);
+        notifyuser($email, $fname, $lname);
     } else {
         echo $user_id->get_error_message();
     }
@@ -897,7 +898,7 @@ function vb_reg_new_user() {
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
-function notifyadmin($email, $username, $fname, $lastname) {
+function notifyadmin($email, $username, $fname, $lname) {
   $headers[] = 'Content-Type: text/html; charset=UTF-8';
   $to = "dhnow@pressforward.org";
   $subject = "New User Registration";
