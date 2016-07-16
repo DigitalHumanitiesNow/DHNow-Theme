@@ -933,7 +933,7 @@ function auth_email_username( $user, $username, $password ) {
 add_filter( 'authenticate', 'auth_email_username', 20, 3 );
 
 
-
+//this sends the user an email when they are upgraded to contributor.
 function user_role_update( $user_id, $new_role ) {
     $site_url = get_bloginfo('wpurl');
     $user_info = get_userdata( $user_id );
@@ -944,7 +944,9 @@ function user_role_update( $user_id, $new_role ) {
         $subject = "Role changed: ".$site_url."";
         $message = "Hello " .$user_info->display_name . " your role has changed on     ".$site_url.", congratulations you are now an " . $new_role;
         wp_mail($to, $subject, $message);
-
+        $adminnotification_to = 'dhnow@chnm.org';
+        $adminnotification_subj = "Role changed:".$site_url."";
+        $adminnotification_msg = "The following user:" . $user_info->display_name . " has been upgraded to " . $new_role . "on " . date("Y-m-d h:i:sa") . ". ";
     }
 
 }
