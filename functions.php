@@ -932,15 +932,7 @@ function auth_email_username( $user, $username, $password ) {
 }
 add_filter( 'authenticate', 'auth_email_username', 20, 3 );
 
-function debug_to_console( $data ) {
 
-    if ( is_array( $data ) )
-        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
-    else
-        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
-
-    echo $output;
-}
 
 function user_role_update( $user_id, $new_role ) {
     $site_url = get_bloginfo('wpurl');
@@ -953,7 +945,7 @@ function user_role_update( $user_id, $new_role ) {
         $message = "Hello " .$user_info->display_name . " your role has changed on     ".$site_url.", congratulations you are now an " . $new_role;
         wp_mail($to, $subject, $message);
 
-    } 
+    }
 
 }
 add_action( 'set_user_role', 'user_role_update', 10, 2);
