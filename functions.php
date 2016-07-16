@@ -943,13 +943,18 @@ function debug_to_console( $data ) {
 }
 
 function user_role_update( $user_id, $new_role ) {
-        $site_url = get_bloginfo('wpurl');
-        $user_info = get_userdata( $user_id );
+    $site_url = get_bloginfo('wpurl');
+    $user_info = get_userdata( $user_id );
+
+    if (user_can( $user_id, 'contributor' ) ) {
+
         $to = $user_info->user_email;
         $subject = "Role changed: ".$site_url."";
-        $message = "Hello " .$user_info->display_name . " your role has changed on ".$site_url.", congratulations you are now an " . $new_role;
+        $message = "Hello " .$user_info->display_name . " your role has changed on     ".$site_url.", congratulations you are now an " . $new_role;
         wp_mail($to, $subject, $message);
-        debug_to_console($message);
+
+    } 
+
 }
 add_action( 'set_user_role', 'user_role_update', 10, 2);
 
