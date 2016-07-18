@@ -976,37 +976,48 @@ function user_role_update( $user_id, $new_role ) {
 
 }
 add_action( 'set_user_role', 'user_role_update', 10, 2);
-// ADD RECAPTCHA SETTINGS FIELDS
-add_filter( 'admin_init' , 'register_settings_fields', 1);
-function register_settings_fields() {
-    // Create settings fields for the two keys used by reCAPTCHA
-    register_setting( 'general', 'personalize-login-recaptcha-site-key' );
-    register_setting( 'general', 'personalize-login-recaptcha-secret-key' );
 
-    add_settings_field(
-        'personalize-login-recaptcha-site-key',
-        '<label for="personalize-login-recaptcha-site-key">' . __( 'reCAPTCHA site key' , 'personalize-login' ) . '</label>',
-      'render_recaptcha_site_key_field',
-        'general'
-    );
 
-    add_settings_field(
-        'personalize-login-recaptcha-secret-key',
-        '<label for="personalize-login-recaptcha-secret-key">' . __( 'reCAPTCHA secret key' , 'personalize-login' ) . '</label>',
-        'render_recaptcha_secret_key_field',
-        'general'
-    );
+//Recaptcha setttings page
+function no_captcha_recaptcha_menu() {
+	add_menu_page("reCapatcha Options", "reCaptcha Options", "manage_options", "recaptcha-options", "recaptcha_options_page", "", 100);
 }
 
-function render_recaptcha_site_key_field() {
-    $value = get_option( 'personalize-login-recaptcha-site-key', '' );
-    echo '<input type="text" id="personalize-login-recaptcha-site-key" name="personalize-login-recaptcha-site-key" value="' . esc_attr( $value ) . '" />';
+function recaptcha_options_page() { ?>
+	<div class="wrap">
+		<h1>reCaptcha Options</h1>
+		<form method="post" action="options.php">
+		<?php settings_fields("header_section");
+			do_settings_sections("recaptcha-options");
+			submit_button(); ?>
+		</form>
+	</div>
+<?php }
+add_action("admin_menu", "no_captcha_recaptcha_menu");
+
+function display_recaptcha_options() {
+	add_settings_section("header_section", "Keys", "display_recaptcha_content", "recaptcha-options");
+
+	add_settings_field("captcha_site_key", __("Site Key"), "display_captcha_site_key_element", "recaptcha-options", "header_section");
+	add_settings_field("captcha_secret_key", __("Secret Key"), "display_captcha_secret_key_element", "recaptcha-options", "header_section");
+
+	register_setting("header_section", "captcha_site_key");
+	register_setting("header_section", "captcha_secret_key");
 }
 
-function render_recaptcha_secret_key_field() {
-    $value = get_option( 'personalize-login-recaptcha-secret-key', '' );
-    echo '<input type="text" id="personalize-login-recaptcha-secret-key" name="personalize-login-recaptcha-secret-key" value="' . esc_attr( $value ) . '" />';
+function display_recaptcha_content() {
+	echo __('<p>You need to <a href="https://www.google.com/recaptcha/admin" rel="external">register you domain</a> and get keys to make this plugin work.</p>');
+	echo __("Enter the key details below");
 }
+
+function display_captcha_site_key_element() { ?>
+	<input type="text" name="captcha_site_key" id="captcha_site_key" value="<?php echo get_option('captcha_site_key'); ?>" />
+<?php }
+
+function display_captcha_secret_key_element() { ?>
+	<input type="text" name="captcha_secret_key" id="captcha_secret_key" value="<?php echo get_option('captcha_secret_key'); ?>" />
+<?php }
+add_action("admin_init", "display_recaptcha_options");
 
 
 ?>
