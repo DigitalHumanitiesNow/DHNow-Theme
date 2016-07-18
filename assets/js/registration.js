@@ -34,6 +34,7 @@ jQuery( document ).ready( function( $ ) {
     var location = $('#vb_location').val();
     var twitter = $('#vb_twitter').val();
     var bio = $('#vb_bio').val();
+    var recap = $('#g-recaptcha-response').val();
     //var optout = $('input[name=optout]:checked');
     var checkboxValues = [];
     $('input[name=signup]:checked').map(function() {
@@ -60,9 +61,13 @@ console.log(checkboxValues);
       twitterhandle: twitter,
       userbio: bio,
       volunteerdates: checkboxValues,
+      grecaptcha: recap
     };
+    console.log(data.grecaptcha);
     console.log(data);
     console.log(data.user);
+
+
     // Do AJAX request
     $.post( ajax_url, data, function(response) {
 

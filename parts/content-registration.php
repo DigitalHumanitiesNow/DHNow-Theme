@@ -189,12 +189,16 @@
         </div>
 
 
-
+<div class="row">
+  <div class="large-12 columns">
+      <div class="g-recaptcha" data-sitekey="6LdMbSQTAAAAAHjG_oXkOAQfQGDHJ4wfzzXRN-BS" data-callback="recaptcha_callback"></div>
+  </div>
+</div>
 
   <!-- SUBMIT/RESET -->
   <div class="row">
     <fieldset class="large-6 columns">
-      <button class="button" type="submit" id="btn-new-user" value="Submit">Submit</button>
+      <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button>
     </fieldset>
     <fieldset class="large-6 columns">
       <button class="button" type="reset" value="Reset">Reset</button>
@@ -204,7 +208,7 @@
       </form>
 
 
-    <div class="medium-12 columns"  id="successfulregistration" style="display:none;" >
+    <div class="medium-12 columns"  id="successfulregistration" >
       <div class="callout success">
       <h2>Thank you for registering.</h2>
       <p>Please look for an email from us confirming your registration. We will confirm your account within 3-5 business days.</p>
@@ -216,5 +220,7 @@
       <p class="responsemsg"></p>
     </div>
     </div>
+
+
 
 </article>

@@ -16,7 +16,8 @@ function site_scripts() {
 
     // Register FontAwesome
     wp_enqueue_style( 'prefix-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.5.0' );
-
+    //google recaptcha
+    wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js' );
     //wp_enqueue_script( 'strength-js', get_template_directory_uri() . '/assets/js/strength.js', array('jquery'), '', true);
     //wp_enqueue_style( 'strength-css', get_template_directory_uri(). '/assets/css/strength.css', array(), '', 'all');
     //wp_enqueue_script( 'password-strength-meter' );
