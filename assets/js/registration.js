@@ -21,11 +21,7 @@ jQuery( document ).ready( function( $ ) {
         event.returnValue = false;
     }
 
-    // Show 'Please wait' loader to user, so she/he knows something is going on
-    $('.indicator').show();
 
-    // If for some reason result field is visible hide it
-    $('.result-message').hide();
 
     // Collect data from inputs
     var reg_nonce = $('#vb_new_user_nonce').val();

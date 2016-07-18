@@ -1009,5 +1009,4 @@ function render_recaptcha_secret_key_field() {
 }
 
 
-
 ?>
