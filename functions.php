@@ -864,7 +864,7 @@ function vb_reg_new_user() {
           $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['grecaptcha']);
           $responseData = json_decode($verifyResponse);
           if($responseData->success != true):
-            echo '2';
+            echo 'Captcha failed verification. Please try again.';
             die();
           endif;
 
