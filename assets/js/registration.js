@@ -94,3 +94,6 @@ console.log(checkboxValues);
 
   });
 });
+jQuery( document ).ready( function( $ ) {
+  $('#loginformsubmit').addClass('button');
+});

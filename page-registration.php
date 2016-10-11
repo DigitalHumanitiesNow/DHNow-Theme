@@ -14,7 +14,7 @@ Template Name: Contact
 			 if ($breadcrumb_nav == true):
 					echo custom_breadcrumb();
 				endif; ?>
-		    <main id="main" class="large-offset-1 large-10 large-offset-1 columns" role="main">
+		    <main id="main" class="small-10 large-centered end" role="main">
           <?php while (have_posts()) : the_post() ?>
               <?php get_template_part('parts/content', 'registration') ?>
           <?php endwhile ?>
