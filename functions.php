@@ -859,7 +859,7 @@ function vb_reg_new_user() {
 
   if(isset($_POST['grecaptcha']) && !empty($_POST['grecaptcha']))
           //your site secret key
-          $secret = '6LdMbSQTAAAAAAiyNA-DrkYTe_ZjXGbI_6ClzsmF';
+          $secret = '6LfIIQoUAAAAAG0YFH2a1CRZIcOL75aKO9RtKUTy';
           //get verify response data
           $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['grecaptcha']);
           $responseData = json_decode($verifyResponse);
