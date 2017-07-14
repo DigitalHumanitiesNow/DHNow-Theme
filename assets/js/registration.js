@@ -61,7 +61,7 @@ console.log(checkboxValues);
       twitterhandle: twitter,
       userbio: bio,
       volunteerdates: checkboxValues,
-      //grecaptcha: recap
+      captcha: grecaptcha.getResponse()
     };
     //console.log(data.grecaptcha);
     console.log(data);

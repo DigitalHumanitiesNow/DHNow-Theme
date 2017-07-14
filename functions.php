@@ -842,6 +842,26 @@ add_action('wp_enqueue_scripts', 'vb_register_user_scripts', 100);
 function add_user_signupmeta($userid, $voldates) {
   add_user_meta( $userid, 'pie_checkbox_3', $voldates);
 }
+// is Simple reCAPTCHA active?
+if ( function_exists( 'wpmsrc_check' ) ) {
+
+	// check for empty user response first (optional)
+	if ( empty( $_POST['recaptcha_response_field'] ) ) {
+
+		$errors['captcha'] = __( 'Please complete the CAPTCHA.', 'yourtextdomain' );
+
+	} else {
+
+		// check captcha
+		$response = wpmsrc_check();
+		if ( ! $response->is_valid ) {
+			$errors['captcha'] = __( 'The CAPTCHA was not entered correctly. Please try again.', 'yourtextdomain' );
+			// $response['error'] contains the actual error message, e.g. "incorrect-captcha-sol"
+		}
+
+	}
+
+}
 /**
  * New User registration
  *
@@ -851,6 +871,24 @@ function vb_reg_new_user() {
   // Verify nonce
   if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) )
     die( 'Ooops, something went wrong, please try again later.' );
+
+  // $is_valid = apply_filters(‘google_invre_is_valid_request_filter’, true);
+  // if( ! $is_valid )
+  // {
+  //   die( 'Ooops, something went wrong, please try again later.' );
+  // }
+  // else
+  // {
+
+$secret="6LfLHikUAAAAAE0RoWKtdHrsKuP1rBwFupQl9kEz";
+$response=$_POST["captcha"];
+$verify=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+
+if ($captcha_success->success==false) {
+  die("captcha not successful");
+} else if($captcha_success->success==true) {
+
+
   //verify captcha
   // $captcha = verify_captcha($_POST['grecaptcha']);
   // if( !isset( $_POST['grecaptcha']) || $captcha === false)
@@ -909,14 +947,16 @@ function vb_reg_new_user() {
     // Return
     if( !is_wp_error($user_id) ) {
         echo '1';
+
         notifyadmin($email, $username, $fname, $lname);
         notifyuser($email, $fname, $lname);
+          return $isvalid;
     } else {
         echo $user_id->get_error_message();
     }
   add_user_signupmeta($user_id, $voldates);
   die();
-
+}
 }
 
 add_action('wp_ajax_register_user', 'vb_reg_new_user');

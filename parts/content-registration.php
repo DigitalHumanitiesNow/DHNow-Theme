@@ -189,14 +189,14 @@
         </div>
 
 
-<!-- <div class="row">
-  <div class="large-12 columns">
-      <div class="g-recaptcha" data-sitekey="6LfIIQoUAAAAAIuk9_WkUZZ-Bnm1oE-jZYtoqMBr" data-callback="recaptcha_callback"></div>
-  </div>
-</div> -->
+
+
 
   <!-- SUBMIT/RESET -->
   <div class="row">
+    <div class="captcha_wrapper">
+      <div class="g-recaptcha" data-sitekey="6LfLHikUAAAAAIX8XjRoV_eoAU1xnPGOg88dFCIF"></div>
+    </div>
     <fieldset class="large-6 columns">
       <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button>
     </fieldset>
@@ -205,6 +205,11 @@
     </fieldset>
   </div>
  </div> <!-- close vb-reg form -->
+ <div class="row">
+   <div class="large-12 columns">
+
+   </div>
+ </div>
       </form>
 
       <div class="row">
