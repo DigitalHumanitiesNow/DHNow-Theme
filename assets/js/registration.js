@@ -5,10 +5,7 @@ jQuery( document ).ready( function( $ ) {
    *
    */
   $('#btn-new-user').click( function(event) {
-    // if (strength <= 2) {
-    //   $('.result-message').html('You have problems.'); // Add success message to results div
-    //   die;
-    // }
+
     var elements = this.elements;
 
     /**
@@ -34,7 +31,7 @@ jQuery( document ).ready( function( $ ) {
     var location = $('#vb_location').val();
     var twitter = $('#vb_twitter').val();
     var bio = $('#vb_bio').val();
-    //var recap = $('#g-recaptcha-response').val();
+    var captcha_response = $('#g-recaptcha-response').val();
     //var optout = $('input[name=optout]:checked');
     var checkboxValues = [];
     $('input[name=signup]:checked').map(function() {
@@ -61,7 +58,7 @@ console.log(checkboxValues);
       twitterhandle: twitter,
       userbio: bio,
       volunteerdates: checkboxValues,
-      captcha: grecaptcha.getResponse()
+      captcha: captcha_response
     };
     console.log(data.captcha);
     console.log(data);
@@ -86,7 +83,6 @@ console.log(checkboxValues);
           $('.vb-registration-form').remove();
           $('#unsuccessfulregistration').show();
           $('.responsemsg').append(response);
-          //need to append response here and then display #unsuccessfulregistration
           console.log(response);
         }
       }
@@ -94,6 +90,6 @@ console.log(checkboxValues);
 
   });
 });
-jQuery( document ).ready( function( $ ) {
-  $('#loginformsubmit').addClass('button');
-});
+// jQuery( document ).ready( function( $ ) {
+//   $('#loginformsubmit').addClass('button');
+// });
