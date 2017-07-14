@@ -44,7 +44,7 @@ console.log(checkboxValues);
      */
     var ajax_url = vb_reg_vars.vb_ajax_url;
 
-    // Data to send
+    // Data to send. The register_user action corresponds to the action in functions.php
     data = {
       action: 'register_user',
       nonce: reg_nonce,
