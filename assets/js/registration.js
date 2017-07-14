@@ -63,7 +63,7 @@ console.log(checkboxValues);
       volunteerdates: checkboxValues,
       captcha: grecaptcha.getResponse()
     };
-    //console.log(data.grecaptcha);
+    console.log(data.captcha);
     console.log(data);
     console.log(data.user);
 
