@@ -855,18 +855,17 @@ function vb_reg_new_user() {
   // $captcha = verify_captcha($_POST['grecaptcha']);
   // if( !isset( $_POST['grecaptcha']) || $captcha === false)
   //   die('Oops, it appears something went wrong.');
-
-
-  if(isset($_POST['grecaptcha']) && !empty($_POST['grecaptcha']))
-          //your site secret key
-          $secret = '6LfIIQoUAAAAAG0YFH2a1CRZIcOL75aKO9RtKUTy';
-          //get verify response data
-          $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['grecaptcha']);
-          $responseData = json_decode($verifyResponse);
-          if($responseData->success != true):
-            echo 'Captcha failed verification. Please try again.';
-            die();
-          endif;
+//
+  // if(isset($_POST['grecaptcha']) && !empty($_POST['grecaptcha']))
+  //         //your site secret key
+  //         $secret = '6LfIIQoUAAAAAG0YFH2a1CRZIcOL75aKO9RtKUTy';
+  //         //get verify response data
+  //         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['grecaptcha']);
+  //         $responseData = json_decode($verifyResponse);
+  //         if($responseData->success != true):
+  //           echo 'Captcha failed verification. Please try again.';
+  //           die();
+  //         endif;
 
 
 
@@ -1000,31 +999,31 @@ add_action( 'set_user_role', 'user_role_update', 10, 2);
 // add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
 // add_action('login_enqueue_scripts', array($this, 'enqueue_scripts'));
 
-function enqueue_scripts()
-{
-    wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js' );
+//function enqueue_scripts()
+//{
+    //wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js' );
 
     // wp_enqueue_script( 'recaptcha-display-buttons', plugin_dir_url(__FILE__) . 'assets/js/public.js', array('jquery'));
     // wp_enqueue_style( 'recaptcha-hide-buttons', plugin_dir_url(__FILE__) . 'assets/css/public.css');
-}
+//}
 
-function display_recaptcha()
-{
-    echo '<div class="g-recaptcha" data-sitekey="6LdMbSQTAAAAAHjG_oXkOAQfQGDHJ4wfzzXRN-BS" data-callback="recaptcha_callback"></div>';
-}
+// function display_recaptcha()
+// {
+//     echo '<div class="g-recaptcha" data-sitekey="6LdMbSQTAAAAAHjG_oXkOAQfQGDHJ4wfzzXRN-BS" data-callback="recaptcha_callback"></div>';
+// }
 
-function verify_captcha( $parameter = true )
-{
-    if( isset( $_POST['g-recaptcha-response'] ) )
-    {
-        $response = json_decode(wp_remote_retrieve_body( wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret=6LdMbSQTAAAAAAiyNA-DrkYTe_ZjXGbI_6ClzsmF&response=" .$_POST['g-recaptcha-response'] ) ), true );
-
-        if( $response["success"] )
-        {
-            return $parameter;
-        }
-    }
-
-    return false;
-}
+// function verify_captcha( $parameter = true )
+// {
+//     if( isset( $_POST['g-recaptcha-response'] ) )
+//     {
+//         $response = json_decode(wp_remote_retrieve_body( wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret=6LdMbSQTAAAAAAiyNA-DrkYTe_ZjXGbI_6ClzsmF&response=" .$_POST['g-recaptcha-response'] ) ), true );
+//
+//         if( $response["success"] )
+//         {
+//             return $parameter;
+//         }
+//     }
+//
+//     return false;
+// }
 ?>

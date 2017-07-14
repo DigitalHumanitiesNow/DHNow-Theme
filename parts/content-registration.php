@@ -189,11 +189,11 @@
         </div>
 
 
-<div class="row">
+<!-- <div class="row">
   <div class="large-12 columns">
       <div class="g-recaptcha" data-sitekey="6LfIIQoUAAAAAIuk9_WkUZZ-Bnm1oE-jZYtoqMBr" data-callback="recaptcha_callback"></div>
   </div>
-</div>
+</div> -->
 
   <!-- SUBMIT/RESET -->
   <div class="row">
