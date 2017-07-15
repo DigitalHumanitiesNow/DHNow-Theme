@@ -382,29 +382,7 @@ function vb_reg_new_user() {
 
 
 
-    $userdata = array(
-        'user_login' => $username,
-        'user_pass'  => $password,
-        'user_email' => $email,
-        'first_name' => $fname,
-        'last_name' => $lname,
-        'description' => $bio,
-        'role' => 'pending'
-    );
-
-    $user_id = wp_insert_user( $userdata );
-
-    // Return
-    if( !is_wp_error($user_id) ) {
-        echo '1';
-
-        notifyadmin($email, $username, $fname, $lname);
-        notifyuser($email, $fname, $lname);
-          return $isvalid;
-    } else {
-        echo $user_id;
-        echo $user_id->get_error_message();
-    }
+     
   add_user_signupmeta($user_id, $voldates);
   die();
 //}
