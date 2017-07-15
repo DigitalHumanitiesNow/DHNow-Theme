@@ -193,10 +193,10 @@
 
 
   <!-- SUBMIT/RESET -->
-  <div class="row">
+  <!-- <div class="row">
     <div class="captcha_wrapper">
       <div class="g-recaptcha" data-sitekey="6LfXHykUAAAAAGZ9dzflpuavkM7MkRmROh6eEd2V"></div>
-    </div>
+    </div> -->
     <fieldset class="large-6 columns">
       <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button>
     </fieldset>
