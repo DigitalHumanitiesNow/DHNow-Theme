@@ -314,6 +314,13 @@ function yourprefix_register_user_profile_metabox() {
       '26' => __( 'Aug 1-10', 'cmb2' ),
       '27' => __( 'Aug 11-20', 'cmb2' ),
       '28' => __( 'Aug 21-30', 'cmb2' ),
+      '29' => __( 'Aug 21-30', 'cmb2' ),
+      '30' => __( 'July 24 - July 30', 'cmb2' ),
+      '31' => __( 'July 31 - Aug 6', 'cmb2' ),
+      '32' => __( 'Aug 7-13', 'cmb2' ),
+      '33' => __( 'Aug 14-20', 'cmb2' ),
+      '34' => __( 'Aug 21-27', 'cmb2' ),
+      '35' => __( 'Aug 28-Sept 3rd', 'cmb2' ),
     ),
     // 'inline'  => true, // Toggles display to inline
   ) );

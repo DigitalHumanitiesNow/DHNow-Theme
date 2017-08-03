@@ -184,6 +184,11 @@
         <input id="checkbox1" type="checkbox" value="27" name="signup" id="signup"><label for="checkbox1">Checkbox 1</label>
         <input id="checkbox2" type="checkbox" value="28" name="signup" id="signup"><label for="checkbox2">Checkbox 2</label>
         <input id="checkbox3" type="checkbox" value="29" name="signup" id="signup"><label for="checkbox3">Checkbox 3</label>
+        <input id="checkbox31" type="checkbox" value="31" name="signup" id="signup"><label for="checkbox31">July 31-August 6th</label>
+        <input id="checkbox32" type="checkbox" value="32" name="signup" id="signup"><label for="checkbox32">Aug 7-13th</label>
+        <input id="checkbox33" type="checkbox" value="33" name="signup" id="signup"><label for="checkbox33">Aug 14-20</label>
+        <input id="checkbox34" type="checkbox" value="34" name="signup" id="signup"><label for="checkbox34">Aug 21-27</label>
+        <input id="checkbox35" type="checkbox" value="35" name="signup" id="signup"><label for="checkbox35">Aug 28-Sept3</label>
         <p class="help-text">Editor-at-Large weeks run from x to x. Use these boxes to select the weeks you would like to volunteer as an Editor-at-Large. You can always edit these in your profile.</p>
         </fieldset>
         </div>
