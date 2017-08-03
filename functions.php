@@ -340,54 +340,63 @@ function add_user_signupmeta($userid, $voldates) {
  * New User registration
  *
  */
-function vb_reg_new_user() {
+ function vb_reg_new_user() {
+   // Verify nonce
+   if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) )
+     die( 'Ooops, something went wrong, please try again later.' );
+   //verify captcha
 
-  // Verify nonce
-  if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) )
-    die( 'Ooops, something went wrong, please try again later.' );
-
-
-
-// $secret="6LfXHykUAAAAAE04jY4bNnrHadMU2cKA33F0md9X";
-// $response=$_POST["captcha"];
-// $verify=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+   $secret="6LfsUisUAAAAAPqLTEgAZmiR0y-KiJ0ZMsU6J8uC";
+   $response=$_POST["captcha"];
+   $verify=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
 //
-// if ($captcha_success->success==false) {
-//   die("captcha not successful");
-// } else if($captcha_success->success==true) {
+    if ($captcha_success->success==false) {
+        die("captcha not successful");
+    } else if($captcha_success->success==true) {
 
-//note--uncomment the closing bracket below too if above is uncommented.
-
-
-  // Post values
-    $username = $_POST['user'];
-    $password = $_POST['pass'];
-    $email    = $_POST['mail'];
-    $fname    = $_POST['firstname'];
-    $lname    = $_POST['lastname'];
-    $instaffil = $_POST['institution'];
-    $loc       = $_POST['location'];
-    $twitter  = $_POST['twitterhandle'];
-    $bio  = $_POST['userbio'];
-    $voldates = $_POST['volunteerdates'];
-
-
-  $username = sanitize_text_field($username);
-  $fname = sanitize_text_field($fname);
-  $lname = sanitize_text_field($lname);
-  $instaffil = sanitize_text_field($instaffil);
-  $loc = sanitize_text_field($loc);
-  $twitter  = sanitize_text_field($twitter);
-  $bio  = sanitize_text_field($bio);
-
-
-
-     
-  add_user_signupmeta($user_id, $voldates);
-  die();
-//}
-}
-//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
+   // Post values
+     $username = $_POST['user'];
+     $password = $_POST['pass'];
+     $email    = $_POST['mail'];
+     $fname    = $_POST['firstname'];
+     $lname    = $_POST['lastname'];
+     $instaffil = $_POST['institution'];
+     $loc       = $_POST['location'];
+     $twitter  = $_POST['twitterhandle'];
+     $bio  = $_POST['userbio'];
+     $voldates = $_POST['volunteerdates'];
+   $username = sanitize_text_field($username);
+   $fname = sanitize_text_field($fname);
+   $lname = sanitize_text_field($lname);
+   $instaffil = sanitize_text_field($instaffil);
+   $loc = sanitize_text_field($loc);
+   $twitter  = sanitize_text_field($twitter);
+   $bio  = sanitize_text_field($bio);
+     $userdata = array(
+         'user_login' => $username,
+         'user_pass'  => $password,
+         'user_email' => $email,
+         'first_name' => $fname,
+         'last_name' => $lname,
+         'description' => $bio,
+         'role' => 'pending'
+     );
+     $user_id = wp_insert_user( $userdata ) ;
+   // else:
+   //   echo 'failed recaptcha';
+   // endif;
+ }
+     // Return
+     if( !is_wp_error($user_id) ) {
+         echo '1';
+         notifyadmin($email, $username, $fname, $lname);
+         notifyuser($email, $fname, $lname);
+     } else {
+         echo $user_id->get_error_message();
+     }
+   add_user_signupmeta($user_id, $voldates);
+   die();
+ }//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
