@@ -378,7 +378,7 @@ function add_user_signupmeta($userid, $voldates) {
    // else:
    //   echo 'failed recaptcha';
    // endif;
- 
+
      // Return
      if( !is_wp_error($user_id) ) {
          echo '1';
@@ -466,6 +466,15 @@ function user_role_update( $user_id, $new_role ) {
 
 }
 add_action( 'set_user_role', 'user_role_update', 10, 2);
+function redirect_login_page() {
+  $login_page  = home_url( '/login/' );
+  $page_viewed = basename($_SERVER['REQUEST_URI']);
 
+  if( $page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
+    wp_redirect($login_page);
+    exit;
+  }
+}
+add_action('init','redirect_login_page');
 
 ?>
