@@ -18,17 +18,21 @@ Template Name: Volunteer (DHNow Specific)
 			</div>
 
 		 <?php if (is_user_logged_in() ) { ?>
-			<div class="row">
+			<div class="row" class="main">
 				<div class="large-offset-1 large-10 large-offset-1 columns">
 		 			<div class="row">
 		 									<div class="large-6 medium-6 small-12 columns text-center" id="login-col">
-		 											<h3>Nominate Content</h3>
+													<div class="volunteer-topbox">
+													<h3>Nominate Content</h3>
 		 											<?php echo '<a class="button" href="' .get_dashboard_url() . '/admin.php?page=pf-menu" role="button">Nominate Content</a>'; ?>
+												</div>
 		 									</div>
 
 											<div class="large-6 medium-6 small-12 columns text-center">
+												<div class="volunteer-topbox">
 		 											<h3>Manage Volunteer Dates & Profile</h3>
 		 											<?php echo '<a class="button" href="' . get_edit_profile_url() . '" role="button">Manage Volunteer Dates</a> '; ?>
+												</div>
 		 									</div>
 		 			</div> <!-- close reg-row -->
 				</div>
@@ -38,13 +42,17 @@ Template Name: Volunteer (DHNow Specific)
 					<div class="large-offset-1 large-10 large-offset-1 columns">
 			 			<div class="row">
 				 							<div class="medium-6 large-6 small-12 columns text-center" id="login-col">
-				 									<h3>Editor-at-Large Login</h3>
+												<div class="volunteer-topbox">
+													<h3>Editor-at-Large Login</h3>
 				 									<?php echo '<a class="button" href="' . get_site_url() . '/login" role="button">Log In</a>'; ?>
-				 							</div>
+												</div>
+											</div>
 
 											<div class="medium-6 large-6 small-12 columns text-center">
+												<div class="volunteer-topbox">
 				 									<h3>Volunteer</h3>
 				 									<?php echo '<a class="button" href="' . get_site_url() . '/registration" role="button">Register</a>'; ?>
+												</div>
 				 							</div>
 				 					</div>
 								</div>
