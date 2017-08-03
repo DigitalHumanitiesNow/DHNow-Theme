@@ -18,6 +18,11 @@
       'remember' => true
   );
   wp_login_form( $args );
+  $registerurl = site_url('/register');
+  $lostpassurl = site_url('/wp-login.php?action=lostpassword');
+  echo '<a href="' . $registerurl . '">Register</a>';
+  echo " | ";
+  echo "<a href='" . $lostpassurl . "'>Recover Password</a>";
 } else { // If logged in:
   wp_loginout( home_url() ); // Display "Log Out" link.
   echo " | ";
