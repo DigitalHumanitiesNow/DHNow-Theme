@@ -346,13 +346,6 @@ function add_user_signupmeta($userid, $voldates) {
      die( 'Ooops, something went wrong, please try again later.' );
    //verify captcha
 
-   $secret="6LfsUisUAAAAAPqLTEgAZmiR0y-KiJ0ZMsU6J8uC";
-   $response=$_POST["captcha"];
-   $verify=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
-//
-    if ($captcha_success->success==false) {
-        die("captcha not successful");
-    } else if($captcha_success->success==true) {
 
    // Post values
      $username = $_POST['user'];
@@ -385,7 +378,7 @@ function add_user_signupmeta($userid, $voldates) {
    // else:
    //   echo 'failed recaptcha';
    // endif;
- }
+ 
      // Return
      if( !is_wp_error($user_id) ) {
          echo '1';
