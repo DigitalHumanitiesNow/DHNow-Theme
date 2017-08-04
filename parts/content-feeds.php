@@ -6,18 +6,24 @@
 
     <section class="entry-content" itemprop="articleBody">
 <?php
+      //construct the feeds endpoint url
+      $endpoint_url = site_url($path = 'wp-json/pf/v1/feeds');
+
+      //fetch response
       $response = wp_remote_get( 'http://mysite.com/wp-json/wp/v2/posts/' );
 
+      //account for errors
 	    if( is_wp_error( $response ) ) {
 		      return;
 	    }
-
+      //decode response
 	    $feeds = json_decode( wp_remote_retrieve_body( $response ) );
 
 	    if( empty( $feeds ) ) {
 		      return;
 	    }
 
+      //construct a list of each feed.
       if( !empty( $feeds ) ) {
 		      echo '<ul>';
 		    foreach( $feeds as $feeds ) {
