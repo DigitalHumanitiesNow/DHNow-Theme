@@ -18,7 +18,7 @@ Template Name: Subscribed Feeds (No Sidebar)
 
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-					<?php get_template_part( 'parts/loop', 'feeds' ); ?>
+					<?php get_template_part( 'parts/content', 'feeds' ); ?>
 
 				<?php endwhile; endif; ?>
 

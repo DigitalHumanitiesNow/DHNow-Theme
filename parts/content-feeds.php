@@ -10,7 +10,7 @@
       $endpoint_url = site_url($path = 'wp-json/pf/v1/feeds');
 
       //fetch response
-      $response = wp_remote_get( 'http://mysite.com/wp-json/wp/v2/posts/' );
+      $response = wp_remote_get( $endpoint_url );
 
       //account for errors
 	    if( is_wp_error( $response ) ) {
@@ -18,7 +18,7 @@
 	    }
       //decode response
 	    $feeds = json_decode( wp_remote_retrieve_body( $response ) );
-
+      echo $feeds;
 	    if( empty( $feeds ) ) {
 		      return;
 	    }
@@ -26,8 +26,8 @@
       //construct a list of each feed.
       if( !empty( $feeds ) ) {
 		      echo '<ul>';
-		    foreach( $feeds as $feeds ) {
-			    echo '<li><a href="' . $feed->link. '">' . $link->title->rendered . '</a></li>';
+		    foreach( $feeds as $feed ) {
+			    echo '<li><a href="' . $feed->link. '">' . $feed->title->rendered . '</a></li>';
 		    }
 		   echo '</ul>';
 	    }
