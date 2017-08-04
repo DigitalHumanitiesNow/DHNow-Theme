@@ -6,7 +6,7 @@
 
     <section class="entry-content" itemprop="articleBody">
 <?php
-
+      $jsfeedlist = "";
       //construct the feeds endpoint url
       //$endpoint_url = site_url($path = 'wp-json/pf/v1/feeds');
       $endpoint_url = 'http://www.digitalhumanitiesnow.org/wp-json/pf/v1/feeds?per_page=100';
@@ -31,11 +31,13 @@
         foreach( $feeds as $feed ) {
          //$feedlist[] = '<li><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></li>';
          $jsfeedlist .= '<tr><td><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></td><td>' . $feed->ab_alert_msg . '<td></tr>';
-
       }
-       return $jsfeedlist;
     }
 ?>
+<!-- to do:
+* can't figure out why I keep getting an undefined variable error. - FIXED
+* need to queue up the proper js data tables files.
+ -->
 <table class="table table-striped display" id="archive_table">
   <thead>
     <th>Feed</th>
