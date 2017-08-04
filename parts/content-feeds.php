@@ -18,7 +18,6 @@
 	    }
       //decode response
 	    $feeds = json_decode( wp_remote_retrieve_body( $response ) );
-      echo $feeds;
 	    if( empty( $feeds ) ) {
 		      return;
 	    }
@@ -27,7 +26,7 @@
       if( !empty( $feeds ) ) {
 		      echo '<ul>';
 		    foreach( $feeds as $feed ) {
-			    echo '<li><a href="' . $feed->link. '">' . $feed->title->rendered . '</a></li>';
+			    echo '<li><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></li>';
 		    }
 		   echo '</ul>';
 	    }
