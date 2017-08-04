@@ -29,18 +29,25 @@
         $getpageresponse = wp_remote_get($endpointpage);
         $feeds = json_decode(wp_remote_retrieve_body($response));
         foreach( $feeds as $feed ) {
-         $feedlist[] = '<li><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></li>';
+         //$feedlist[] = '<li><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></li>';
+         $jsfeedlist .= '<tr><td><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></td><td>' . $feed->ab_alert_msg . '<td></tr>';
 
       }
+       return $jsfeedlist;
     }
 ?>
-<ul>
+<table class="table table-striped display" id="archive_table">
+  <thead>
+    <th>Feed</th>
+    <th>Broken?</th>
+  </thead>
+  <tbody>
 <?php
-  foreach($feedlist as $key=>$value) {
-    echo $value;
-  }
+  echo $jsfeedlist;
  ?>
- </ul>
+ </tbody>
+
+
 	</section> <!-- end article section -->
 
 	<footer class="article-footer">
