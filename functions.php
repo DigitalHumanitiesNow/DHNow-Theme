@@ -486,38 +486,45 @@ add_action('init','redirect_login_page');
 
 
 function get_active_pffeeds() {
-$jsfeedlist = "";
-//construct the feeds endpoint url
-//$endpoint_url = site_url($path = 'wp-json/pf/v1/feeds');
-$endpoint_url = 'http://www.digitalhumanitiesnow.org/wp-json/pf/v1/feeds?per_page=100';
-//fetch response
-$response = wp_remote_get($endpoint_url);
-//account for errors
-if( is_wp_error( $response ) ) {
+  //set up empty array for feed list.
+  $jsfeedlist = "";
+
+  //construct the feeds endpoint url
+  //$endpoint_url = site_url($path = 'wp-json/pf/v1/feeds');
+  $endpoint_url = 'http://www.digitalhumanitiesnow.org/wp-json/pf/v1/feeds?per_page=100';
+
+  //fetch response
+  $response = wp_remote_get($endpoint_url);
+
+  //account for errors
+  if( is_wp_error( $response ) ) {
     return;
-}
-if (is_array($response)) {
-  $header = $response['headers'];
-}
-$totalpages = $header['x-wp-totalpages'];
-//echo '<script>console.log('.$totalpages.')</script>';
-for($i = 1; $i <= $totalpages; $i++) {
-  $endpointpage = $endpoint_url . '&page=' . $i;
-  //echo '<script>console.log('.$i.')</script>';
-  //echo '<script>console.log('.$endpointpage.')</script>';
-  //echo '<script>console.log("Getting the following url: "'. $endpointpage . '")</script>"';
-  $getpageresponse = wp_remote_get($endpointpage);
-  $feeds = json_decode(wp_remote_retrieve_body($response));
-  foreach( $feeds as $feed ) {
-   //$feedlist[] = '<li><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></li>';
-   $jsfeedlist .= '<tr><td><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></td><td>' . $feed->ab_alert_msg . '</td></tr>';
-   return '<table class="display" cellspacing="0" width="100%" id="archive_table">
-     <thead>
-       <th>Feed</th>
-       <th>Broken?</th>
-     </thead>
-     <tbody>'. $jsfeedlist .'</tbody></table>';
-   }
- }
+  }
+
+  if (is_array($response)) {
+    $header = $response['headers'];
+  }
+
+  $totalpages = $header['x-wp-totalpages'];
+
+  for($i = 1; $i <= $totalpages; $i++) {
+    $endpointpage = $endpoint_url . '&page=' . $i;
+    $getpageresponse = wp_remote_get($endpointpage);
+    $feeds = json_decode(wp_remote_retrieve_body($response));
+
+      foreach( $feeds as $feed ) {
+        $jsfeedlist .= '<tr><td><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></td><td>' . $feed->ab_alert_msg . '</td></tr>';
+      }
+
+  }
+
+ return '<table class="display" cellspacing="0" width="100%" id="archive_table">
+        <thead>
+          <th>Feed</th>
+          <th>Broken?</th>
+        </thead>
+
+        <tbody>' . $jsfeedlist . '</tbody>
+        </table>';
 }
 ?>
