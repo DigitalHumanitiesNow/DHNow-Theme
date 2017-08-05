@@ -501,21 +501,22 @@ function get_active_pffeeds() {
     return;
   }
 
-  if (is_array($response)) {
-    $header = $response['headers'];
-  }
+
+  $header = $response['headers'];
+
 
   $totalpages = $header['x-wp-totalpages'];
 
-  for($i = 1; $i <= $totalpages; $i++) {
+  $i = 1;
+
+  while( $i<=$totalpages ) {
     $endpointpage = $endpoint_url . '&page=' . $i;
     $getpageresponse = wp_remote_get($endpointpage);
     $feeds = json_decode(wp_remote_retrieve_body($response));
-
-      foreach( $feeds as $feed ) {
-        $jsfeedlist .= '<tr><td><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></td><td>' . $feed->ab_alert_msg . '</td></tr>';
-      }
-
+    foreach( $feeds as $feed ) {
+      $jsfeedlist .= '<tr><td><a href="' . $feed->feedUrl . '">' . $feed->title->rendered . '</a></td><td>' . $feed->ab_alert_msg . '</td></tr>';
+    }
+    $i++;
   }
 
  return '<table class="display" cellspacing="0" width="100%" id="archive_table">
