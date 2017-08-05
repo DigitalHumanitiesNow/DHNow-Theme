@@ -18,6 +18,20 @@ function site_scripts() {
     wp_enqueue_style( 'prefix-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.5.0' );
     //google recaptcha
     wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js' );
+
+    if(is_page()) {
+      global $wp_query;
+
+      $template_name = get_post_meta($wp_query->post->ID, '_wp_page_template', true);
+
+      if($template_name == "page-feeds.php"){
+
+          wp_enqueue_script('datatables', 'https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js', true);
+
+          wp_enqueue_style('datatables_css', 'https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css', false );
+
+      }
+    }
     //wp_enqueue_script( 'strength-js', get_template_directory_uri() . '/assets/js/strength.js', array('jquery'), '', true);
     //wp_enqueue_style( 'strength-css', get_template_directory_uri(). '/assets/css/strength.css', array(), '', 'all');
     //wp_enqueue_script( 'password-strength-meter' );

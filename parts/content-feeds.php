@@ -38,6 +38,16 @@
 * can't figure out why I keep getting an undefined variable error. - FIXED
 * need to queue up the proper js data tables files.
  -->
+
+ <script type="text/javascript" >
+		jQuery(document).ready( function ($) {
+	    $('#archive_table').DataTable( {
+				 "pageLength": 50,
+				 "order": [[ 3, 'asc' ]],
+			});
+		} ); 
+	</script>
+
 <table class="table table-striped display" id="archive_table">
   <thead>
     <th>Feed</th>
