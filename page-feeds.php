@@ -27,5 +27,12 @@ Template Name: Subscribed Feeds (No Sidebar)
 		</div> <!-- end #inner-content -->
 
 	</div> <!-- end #content -->
-
+	<script type="text/javascript" >
+		jQuery(document).ready( function ($) {
+			$('#archive_table').DataTable( {
+				 "pageLength": 50,
+				 "order": [[ 1, 'asc' ]],
+			});
+		} );
+	</script>
 <?php get_footer(); ?>
