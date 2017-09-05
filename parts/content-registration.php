@@ -198,7 +198,7 @@
 
 
   <!-- SUBMIT/RESET -->
-  <div class="g-recaptcha" data-sitekey="6LfsUisUAAAAAHrbOFLYRkaaHf05sE_PcSJoFgVi"></div>
+  <div class="g-recaptcha" data-sitekey="6LcEcC8UAAAAAApN8JuKh1GYSEou7OJCpu7PLqF3"></div>
     <fieldset class="large-6 columns">
       <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button>
     </fieldset>

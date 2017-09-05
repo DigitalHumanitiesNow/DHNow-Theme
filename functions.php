@@ -353,7 +353,20 @@ function add_user_signupmeta($userid, $voldates) {
      die( 'Ooops, something went wrong, please try again later.' );
    //verify captcha
 
-
+     if(isset($_POST['captcha']) && !empty($_POST['captcha'])) {
+       //your site secret key
+     $secret = "6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-";
+         //get verify response data
+         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['captcha']);
+       $responseData = json_decode($verifyResponse);
+       if($responseData->success != true) {
+         echo 'Captcha failed verification. Please try again.';
+           die();
+         }
+      } else {
+        echo 'no captcha detected';
+        die();
+      }
    // Post values
      $username = $_POST['user'];
      $password = $_POST['pass'];
