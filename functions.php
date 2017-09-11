@@ -342,7 +342,24 @@ add_action('wp_enqueue_scripts', 'vb_register_user_scripts', 100);
 function add_user_signupmeta($userid, $voldates) {
   add_user_meta( $userid, 'pie_checkbox_3', $voldates);
 }
+function captcha_verification() {
 
+	$response = isset( $_POST['g-recaptcha-response'] ) ? esc_attr( $_POST['g-recaptcha-response'] ) : '';
+
+	$remote_ip = $_SERVER["REMOTE_ADDR"];
+
+	// make a GET request to the Google reCAPTCHA Server
+	$request = wp_remote_get(
+		'https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-&response=' . $response . '&remoteip=' . $remote_ip
+	);
+
+	// get the request response body
+	$response_body = wp_remote_retrieve_body( $request );
+
+	$result = json_decode( $response_body, true );
+
+	return $result['success'];
+}
 /**
  * New User registration
  *
@@ -351,22 +368,23 @@ function add_user_signupmeta($userid, $voldates) {
    // Verify nonce
    if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) )
      die( 'Ooops, something went wrong, please try again later.' );
-   //verify captcha
 
-     if(isset($_POST['captcha']) && !empty($_POST['captcha'])) {
-       //your site secret key
-     $secret = "6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-";
+
+     $response = $_POST['captcha'];
+     $args = array( 'secret' => '6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-',
+     			  'response' => $response );
+     $request = wp_remote_post( 'https://www.google.com/recaptcha/api/verify', $args );
+     $response_body = wp_remote_retrieve_body( $request );
+
+     $answers = explode( "\n", $response_body );
+
+     $request_status = trim( $answers[0] );
+
+if( $request_status === false) {
+  die('Captcha request failure'. $request_status);}
+
          //get verify response data
-         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['captcha']);
-       $responseData = json_decode($verifyResponse);
-       if($responseData->success != true) {
-         echo 'Captcha failed verification. Please try again.';
-           die();
-         }
-      } else {
-        echo 'no captcha detected';
-        die();
-      }
+  if ( captcha_verification() == true) {
    // Post values
      $username = $_POST['user'];
      $password = $_POST['pass'];
@@ -398,14 +416,19 @@ function add_user_signupmeta($userid, $voldates) {
    // else:
    //   echo 'failed recaptcha';
    // endif;
-
+ } else {
+   echo "captcha failure";
+   echo captcha_verification();
+ }
      // Return
      if( !is_wp_error($user_id) ) {
          echo '1';
+         echo $response['success'];
          notifyadmin($email, $username, $fname, $lname);
          notifyuser($email, $fname, $lname);
      } else {
          echo $user_id->get_error_message();
+         echo $response['success'];
      }
    add_user_signupmeta($user_id, $voldates);
    die();

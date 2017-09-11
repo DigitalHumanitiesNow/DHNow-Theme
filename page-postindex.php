@@ -7,7 +7,22 @@ Template Name: Post Index
 <?php get_header(); ?>
 
 	<div id="content">
-
+		<script>
+		var dhnowurl = "http://www.digitalhumanitiesnow.org/wp-json/wp/v2/posts/";
+		jQuery( document ).ready( function( $ ) {
+			$.ajax({
+         type: "GET",
+         url: 'http://www.oxfordlearnersdictionaries.com/search/english/direct/',
+         data:{q:idiom},
+         async:true,
+         dataType : 'jsonp',   //you may use jsonp for cross origin request
+         crossDomain:true,
+         success: function(data, status, xhr) {
+             alert(xhr.getResponseHeader('Location'));
+         }
+     });
+});
+		</script>
 
 		<div id="inner-content" class="row">
 			<?php $breadcrumb_nav = Kirki::get_option( 'pftk_opts', 'breadcrumbs');
