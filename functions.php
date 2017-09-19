@@ -527,7 +527,7 @@ function get_active_pffeeds() {
 
   //construct the feeds endpoint url
   //$endpoint_url = site_url($path = 'wp-json/pf/v1/feeds');
-  $endpoint_url = 'http://www.digitalhumanitiesnow.org/wp-json/pf/v1/feeds?per_page=100';
+  $endpoint_url = 'https://requestb.in/1kkrf7j1';
 
   //fetch response
   $response = wp_remote_get($endpoint_url);
