@@ -364,21 +364,35 @@ function add_user_signupmeta($userid, $voldates) {
  * New User registration
  *
  */
+
+
+
+	function gglcptch_get_response( $privatekey ) {
+		$args = array(
+			'body' => array(
+				'secret'   => $privatekey,
+				'response' => stripslashes( esc_html( $_POST['captcha'] ) )
+			),
+			'sslverify' => false
+		);
+		$resp = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', $args );
+		return json_decode( wp_remote_retrieve_body( $resp ), true );
+	}
+
+
  function vb_reg_new_user() {
-  //  $args = array(
-  //    'body' => array(
-  //      'secret' => $privatekey,
-  //      'response' => stripslashes( esc_html ($_POST["captcha_response"] ) )
-  //    ));
-  //    $resp = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', $args);
-  //    $response = json_decode( wp_remote_retrieve_body( $response ), true);
-  $captcha = $_POST['captcha'];
-  $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+ $privatekey = '6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-';
+ $response = gglcptch_get_response( $privatekey );
+
+ if ($response['success']) {
+
+
+  //$response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
    // Verify nonce
    if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) ) {
      die( 'Ooops, something went wrong, please try again later.' );
-   } elseif($response.success==false){
+   } if($response.success==false){
      die( 'Captcha error');
 	 } else {
    // Post values
@@ -414,16 +428,20 @@ function add_user_signupmeta($userid, $voldates) {
      // Return
      if( !is_wp_error($user_id) ) {
          echo '1';
-         echo $response['success'];
          notifyadmin($email, $username, $fname, $lname);
          notifyuser($email, $fname, $lname);
      } else {
          echo $user_id->get_error_message();
-         echo $response['success'];
+
      }
    add_user_signupmeta($user_id, $voldates);
    die();
- }}//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
+ }
+
+} else {
+echo 'captcha failure';
+}
+}//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
