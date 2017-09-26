@@ -197,10 +197,12 @@
 
 
 
-  <!-- SUBMIT/RESET -->
+
   <div class="g-recaptcha" data-sitekey="6LcEcC8UAAAAAApN8JuKh1GYSEou7OJCpu7PLqF3"></div>
+
     <fieldset class="large-6 columns">
-      <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button>
+      <input name="wp-submit" id="btn-new-user" class="button" value="Submit" type="submit">
+      <!-- <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button> -->
     </fieldset>
     <fieldset class="large-6 columns">
       <button class="button" type="reset" value="Reset">Reset</button>
