@@ -378,14 +378,25 @@ function add_user_signupmeta($userid, $voldates) {
 		$resp = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', $args );
 		return json_decode( wp_remote_retrieve_body( $resp ), true );
 	}
-
+  function check_captcha() {
+     $privatekey = '6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-';
+     $response = gglcptch_get_response( $privatekey );
+     if ($response['success']) {
+      return 1;
+     } else {
+      return 2;
+     }
+  }
 
  function vb_reg_new_user() {
- $privatekey = '6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-';
- $response = gglcptch_get_response( $privatekey );
 
- if ($response['success']) {
+$cap_check = check_captcha();
 
+
+
+ if($cap_check == 2){
+   die("Captcha failure, code 2");
+ }
 
   //$response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
@@ -432,15 +443,10 @@ function add_user_signupmeta($userid, $voldates) {
          notifyuser($email, $fname, $lname);
      } else {
          echo $user_id->get_error_message();
-
      }
    add_user_signupmeta($user_id, $voldates);
    die();
  }
-
-} else {
-echo 'captcha failure';
-}
 }//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
