@@ -342,49 +342,45 @@ add_action('wp_enqueue_scripts', 'vb_register_user_scripts', 100);
 function add_user_signupmeta($userid, $voldates) {
   add_user_meta( $userid, 'pie_checkbox_3', $voldates);
 }
-function captcha_verification() {
-
-	$response = isset( $_POST['g-recaptcha-response'] ) ? esc_attr( $_POST['g-recaptcha-response'] ) : '';
-
-	$remote_ip = $_SERVER["REMOTE_ADDR"];
-
-	// make a GET request to the Google reCAPTCHA Server
-	$request = wp_remote_get(
-		'https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-&response=' . $response . '&remoteip=' . $remote_ip
-	);
-
-	// get the request response body
-	$response_body = wp_remote_retrieve_body( $request );
-
-	$result = json_decode( $response_body, true );
-
-	return $result['success'];
-}
+// function captcha_verification() {
+//
+// 	$response = isset( $_POST['g-recaptcha-response'] ) ? esc_attr( $_POST['g-recaptcha-response'] ) : '';
+//
+// 	$remote_ip = $_SERVER["REMOTE_ADDR"];
+//
+// 	// make a GET request to the Google reCAPTCHA Server
+// 	$request = wp_remote_get(
+// 		'https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-&response=' . $response . '&remoteip=' . $remote_ip
+// 	);
+//
+// 	// get the request response body
+// 	$response_body = wp_remote_retrieve_body( $request );
+//
+// 	$result = json_decode( $response_body, true );
+//
+// 	return $result['success'];
+// }
 /**
  * New User registration
  *
  */
  function vb_reg_new_user() {
+  //  $args = array(
+  //    'body' => array(
+  //      'secret' => $privatekey,
+  //      'response' => stripslashes( esc_html ($_POST["captcha_response"] ) )
+  //    ));
+  //    $resp = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', $args);
+  //    $response = json_decode( wp_remote_retrieve_body( $response ), true);
+  $captcha = $_POST['captcha'];
+  $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+
    // Verify nonce
-   if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) )
+   if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) ) {
      die( 'Ooops, something went wrong, please try again later.' );
-
-
-     $response = $_POST['captcha'];
-     $args = array( 'secret' => '6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-',
-     			  'response' => $response );
-     $request = wp_remote_post( 'https://www.google.com/recaptcha/api/verify', $args );
-     $response_body = wp_remote_retrieve_body( $request );
-
-     $answers = explode( "\n", $response_body );
-
-     $request_status = trim( $answers[0] );
-
-if( $request_status === false) {
-  die('Captcha request failure'. $request_status);}
-
-         //get verify response data
-  if ( captcha_verification() == true) {
+   } elseif($response.success==false){
+     die( 'Captcha error');
+	 } else {
    // Post values
      $username = $_POST['user'];
      $password = $_POST['pass'];
@@ -396,30 +392,25 @@ if( $request_status === false) {
      $twitter  = $_POST['twitterhandle'];
      $bio  = $_POST['userbio'];
      $voldates = $_POST['volunteerdates'];
-   $username = sanitize_text_field($username);
-   $fname = sanitize_text_field($fname);
-   $lname = sanitize_text_field($lname);
-   $instaffil = sanitize_text_field($instaffil);
-   $loc = sanitize_text_field($loc);
-   $twitter  = sanitize_text_field($twitter);
-   $bio  = sanitize_text_field($bio);
+     $username = sanitize_text_field($username);
+     $fname = sanitize_text_field($fname);
+     $lname = sanitize_text_field($lname);
+     $instaffil = sanitize_text_field($instaffil);
+     $loc = sanitize_text_field($loc);
+     $twitter  = sanitize_text_field($twitter);
+     $bio  = sanitize_text_field($bio);
      $userdata = array(
-         'user_login' => $username,
-         'user_pass'  => $password,
-         'user_email' => $email,
-         'first_name' => $fname,
-         'last_name' => $lname,
-         'description' => $bio,
-         'role' => 'pending'
+       'user_login' => $username,
+       'user_pass'  => $password,
+       'user_email' => $email,
+       'first_name' => $fname,
+       'last_name' => $lname,
+       'description' => $bio,
+       'role' => 'pending'
      );
+
      $user_id = wp_insert_user( $userdata ) ;
-   // else:
-   //   echo 'failed recaptcha';
-   // endif;
- } else {
-   echo "captcha failure";
-   echo captcha_verification();
- }
+
      // Return
      if( !is_wp_error($user_id) ) {
          echo '1';
@@ -432,7 +423,7 @@ if( $request_status === false) {
      }
    add_user_signupmeta($user_id, $voldates);
    die();
- }//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
+ }}//on line 49 of registration.js we use this action. This essentially asks wordpress to listen for the action and then run this function.
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
