@@ -8,19 +8,20 @@ Template Name: Post Index
 
 	<div id="content">
 		<script>
-		var dhnowurl = "http://www.digitalhumanitiesnow.org/wp-json/wp/v2/posts/";
-		jQuery( document ).ready( function( $ ) {
-			$.ajax({
-         type: "GET",
-         url: 'http://www.oxfordlearnersdictionaries.com/search/english/direct/',
-         data:{q:idiom},
-         async:true,
-         dataType : 'jsonp',   //you may use jsonp for cross origin request
-         crossDomain:true,
-         success: function(data, status, xhr) {
-             alert(xhr.getResponseHeader('Location'));
-         }
-     });
+		jQuery(document).ready(function($){
+
+	// Call the /posts endpoint via the WordPress API
+	$.get("http://digitalhumanitiesnow.org/wp-json/wp/v2/posts?categories=234", function (posts) {
+
+  		// Loop through all the posts returned and console.log() each of
+  		// their HTML content
+    		$.each(posts, function(index, post) {
+    			//console.log(post.title['rendered']);
+					var titles = post.title['rendered'];
+					$("#announcements").append('<li>'+titles+'</li>');
+
+    		});
+	});
 });
 		</script>
 
@@ -38,7 +39,8 @@ Template Name: Post Index
 
           <div class="tabs-content" data-tabs-content="example-tabs">
             <div class="tabs-panel is-active" id="panel1">
-              <p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+							<ul id="announcements">
+							</ul>
             </div>
             <div class="tabs-panel" id="panel2">
               <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
