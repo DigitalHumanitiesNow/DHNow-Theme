@@ -181,14 +181,21 @@
 
         <fieldset class="small-12 medium-9 columns">
         <legend>Sign Up Dates</legened><br>
-        <input id="checkbox1" type="checkbox" value="27" name="signup" id="signup"><label for="checkbox1">Checkbox 1</label>
-        <input id="checkbox2" type="checkbox" value="28" name="signup" id="signup"><label for="checkbox2">Checkbox 2</label>
-        <input id="checkbox3" type="checkbox" value="29" name="signup" id="signup"><label for="checkbox3">Checkbox 3</label>
-        <input id="checkbox31" type="checkbox" value="31" name="signup" id="signup"><label for="checkbox31">July 31-August 6th</label>
-        <input id="checkbox32" type="checkbox" value="32" name="signup" id="signup"><label for="checkbox32">Aug 7-13th</label>
-        <input id="checkbox33" type="checkbox" value="33" name="signup" id="signup"><label for="checkbox33">Aug 14-20</label>
-        <input id="checkbox34" type="checkbox" value="34" name="signup" id="signup"><label for="checkbox34">Aug 21-27</label>
-        <input id="checkbox35" type="checkbox" value="35" name="signup" id="signup"><label for="checkbox35">Aug 28-Sept3</label>
+        <input id="checkbox40" type="checkbox" value="40" name="signup" id="signup"><label for="checkbox40">October 1-7th</label>
+        <input id="checkbox41" type="checkbox" value="41" name="signup" id="signup"><label for="checkbox41">Oct 8-14th</label>
+        <input id="checkbox42" type="checkbox" value="42" name="signup" id="signup"><label for="checkbox42">October 15-21st</label>
+        <input id="checkbox43" type="checkbox" value="43" name="signup" id="signup"><label for="checkbox43">October 22-28th</label>
+        <input id="checkbox44" type="checkbox" value="44" name="signup" id="signup"><label for="checkbox44">October 29-November 4th</label>
+        <input id="checkbox45" type="checkbox" value="45" name="signup" id="signup"><label for="checkbox45">November 5-11th</label>
+        <input id="checkbox46" type="checkbox" value="46" name="signup" id="signup"><label for="checkbox46">November 12-18th</label>
+        <input id="checkbox47" type="checkbox" value="47" name="signup" id="signup"><label for="checkbox47">November 19-25th</label>
+        <input id="checkbox48" type="checkbox" value="48" name="signup" id="signup"><label for="checkbox48">November 26-December 2nd</label>
+        <input id="checkbox49" type="checkbox" value="49" name="signup" id="signup"><label for="checkbox49">December 3-9th</label>
+        <input id="checkbox50" type="checkbox" value="50" name="signup" id="signup"><label for="checkbox50">December 10-16th</label>
+        <input id="checkbox51" type="checkbox" value="51" name="signup" id="signup"><label for="checkbox51">December 17-23rd</label>
+        <input id="checkbox52" type="checkbox" value="52" name="signup" id="signup"><label for="checkbox52">December 24-30th</label>
+
+
         <p class="help-text">Editor-at-Large weeks run from x to x. Use these boxes to select the weeks you would like to volunteer as an Editor-at-Large. You can always edit these in your profile.</p>
         </fieldset>
         </div>
@@ -201,7 +208,7 @@
   <div class="g-recaptcha" data-sitekey="6LcEcC8UAAAAAApN8JuKh1GYSEou7OJCpu7PLqF3"></div>
 
     <fieldset class="large-6 columns">
-      
+
       <button class="button" type="submit" id="btn-new-user" value="Submit" display="none">Submit</button>
     </fieldset>
     <fieldset class="large-6 columns">
