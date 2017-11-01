@@ -4,9 +4,12 @@ jQuery( document ).ready( function( $ ) {
    * When user clicks on button...
    *
    */
-  $('#btn-new-user').click( function(event) {
 
-    var elements = this.elements;
+
+
+  $('#btn-new-user').click( function(event) {
+    //errors = jQuery(document).find("input.is-invalid-input");
+
 
     /**
      * Prevent default action, so when user clicks button he doesn't navigate away from page
@@ -17,8 +20,6 @@ jQuery( document ).ready( function( $ ) {
     } else {
         event.returnValue = false;
     }
-
-
 
     // Collect data from inputs
     var reg_nonce = $('#vb_new_user_nonce').val();
@@ -87,6 +88,5 @@ console.log(checkboxValues);
         }
       }
     });
-
   });
 });
