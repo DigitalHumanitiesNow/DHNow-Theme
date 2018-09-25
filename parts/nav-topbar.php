@@ -8,12 +8,8 @@
       <!-- <li><a class="site-title" href="<?php // echo home_url(); ?>">Site Title</a></li> -->
 
 
-				 <?php $logo = Kirki::get_option( 'pftk_opts', 'image_demo'); ?>
-					<?php if (empty($logo) == true): ?>
-							<li><a class="site-title" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a></li>
-					<?php else: ?>
-						<li><a class="site-logo" href="<?php echo home_url(); ?>"><img class="site-logo-img" src="http://digitalhumanitiesnow.org/wp-content/uploads/2015/07/150330_dhnow_logo_inverse-lato.png"></a></li>
-					<?php endif; ?>
+				 		<li><a class="site-logo" href="<?php echo home_url(); ?>"><img class="site-logo-img" src="http://digitalhumanitiesnow.org/wp-content/uploads/2015/07/150330_dhnow_logo_inverse-lato.png"></a></li>
+				
 
 					</ul>
     </div>
