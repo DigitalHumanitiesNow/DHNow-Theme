@@ -8,8 +8,8 @@
       <!-- <li><a class="site-title" href="<?php // echo home_url(); ?>">Site Title</a></li> -->
 
 
-				 		<li><a class="site-logo" href="<?php echo home_url(); ?>"><img class="site-logo-img" src="http://digitalhumanitiesnow.org/wp-content/uploads/2015/07/150330_dhnow_logo_inverse-lato.png"></a></li>
-				
+				 		<li><a class="dhnow-site-logo" href="<?php echo home_url(); ?>"><img class="dhnow_site_logo_img" src="http://digitalhumanitiesnow.org/wp-content/uploads/2015/07/150330_dhnow_logo_inverse-lato.png"></a></li>
+
 
 					</ul>
     </div>
