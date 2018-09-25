@@ -11,7 +11,7 @@
 		</div>
 		<div class="row">
 
-					<main id="main" class="large-12 medium-12 columns" role="main">
+					<main id="main" class="large-offset-1 large-10 large-offset-1 columns" role="main">
 
 
 		    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
