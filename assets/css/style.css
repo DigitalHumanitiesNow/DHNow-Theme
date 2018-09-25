@@ -3866,6 +3866,9 @@ GENERAL STYLES
       height: 15px;
       margin-top: 10px; } }
 
+.top-bar-right {
+  margin-top: 15px; }
+
 .volunteer-topbox {
   background-color: #fff;
   border: 1px solid #ddd;

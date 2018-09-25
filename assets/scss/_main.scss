@@ -19,7 +19,12 @@ GENERAL STYLES
 // 	top: 50%;
 // 	right: 0;
 // }
-
+#footer-logo {
+	@media (max-width: @screen-md){
+		width: 85%;
+		height: auto;
+	}
+}
 .dhnow_site_logo_img {
 	width: auto;
 	height: 40px;
@@ -34,6 +39,9 @@ GENERAL STYLES
 	// 	width: 375px;
 	// 	height: auto;
 	// }
+}
+.top-bar-right {
+	margin-top: 15px;
 }
 .volunteer-topbox {
 	background-color: #fff;
