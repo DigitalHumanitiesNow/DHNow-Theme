@@ -2043,10 +2043,6 @@ textarea {
   textarea[rows] {
     height: auto; }
 
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-  color: #333333; }
-
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
   color: #333333; }
@@ -3859,6 +3855,17 @@ Stylesheet: Main Stylesheet
 /*********************
 GENERAL STYLES
 *********************/
+.logo {
+  width: auto;
+  height: 40px; }
+  @media (max-width: 1050px) {
+    .logo {
+      height: 25px; } }
+  @media (max-width: 500px) {
+    .logo {
+      height: 15px;
+      margin-top: 10px; } }
+
 .volunteer-topbox {
   background-color: #fff;
   border: 1px solid #ddd;
