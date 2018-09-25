@@ -191,7 +191,7 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 
 								//echo '<h1><a href="' . get_permalink($b3r1c1_link) .'">' . $b3r1c1_title .'</a></h1>';
 								if ($b3_linkortitle == 1){
-								echo '<h1><a href="' . get_permalink($b3r1c1_link) .'">' . $b3r1c1_title .'</a></h1>';
+								echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/job/">' . $b3r1c1_title .'</a></h1>';
 							} else {
 								echo '<h1 class="widgettitle">' . $b3r1c1_title . '</h1>';
 							} ?>
@@ -222,7 +222,7 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 
 
 									if ($b3_linkortitle == 1){
-									echo '<h1><a href="' . get_permalink($b3r1c2_link) .'">' . $b3r1c2_title .'</a></h1>';
+									echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/announcements/">' . $b3r1c2_title .'</a></h1>';
 								} else {
 									echo '<h1 class="widgettitle">' . $b3r1c2_title . '</h1>';
 								} ?>
@@ -253,7 +253,7 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 						        $b3r1c3_title = Kirki::get_option('pftk_opts', 'b3r1c3-title');
 
 										if ($b3_linkortitle == 1){
-										echo '<h1><a href="' . get_permalink($b3r1c3_link) .'">' . $b3r1c3_title .'</a></h1>';
+										echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/resources/">' . $b3r1c3_title .'</a></h1>';
 									} else {
 										echo '<h1 class="widgettitle">' . $b3r1c3_title . '</h1>';
 									} ?>
@@ -288,7 +288,7 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 						$b3r2c1_title = Kirki::get_option('pftk_opts', 'b3r2c1-title');
 
 						if ($b3_linkortitle == 1){
-						echo '<h1><a href="' . get_permalink($b3r2c1_link) .'">' . $b3r2c1_title .'</a></h1>';
+						echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/cfp/">' . $b3r2c1_title .'</a></h1>';
 					} else {
 						echo '<h1 class="widgettitle">' . $b3r2c1_title . '</h1>';
 					} ?>
@@ -319,7 +319,7 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 			        $b3r2c2_title = Kirki::get_option('pftk_opts', 'b3r2c2-title');
 
 							if ($b3_linkortitle == 1){
-							echo '<h1><a href="' . get_permalink($b3r2c2_link) .'">' . $b3r2c2_title .'</a></h1>';
+							echo '<h1><a href="http://digitalhumanitiesnow.org/category/funding/">' . $b3r2c2_title .'</a></h1>';
 						} else {
 							echo '<h1 class="widgettitle">' . $b3r2c2_title . '</h1>';
 						} ?>
@@ -350,7 +350,7 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 				        $b3r2c3_title = Kirki::get_option('pftk_opts', 'b3r2c3-title');
 
 								if ($b3_linkortitle == 1){
-								echo '<h1><a href="' . get_permalink($b3r2c3_link) .'">' . $b3r2c3_title .'</a></h1>';
+								echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/resources/">' . $b3r2c3_title .'</a></h1>';
 							} else {
 								echo '<h1 class="widgettitle">' . $b3r2c3_title . '</h1>';
 							} ?>
