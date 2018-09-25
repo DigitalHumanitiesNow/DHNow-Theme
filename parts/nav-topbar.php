@@ -12,7 +12,7 @@
 					<?php if (empty($logo) == true): ?>
 							<li><a class="site-title" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a></li>
 					<?php else: ?>
-						<li><a class="site-logo" href="<?php echo home_url(); ?>"><img class="site-logo-img" src="<?php echo $logo; ?> "></a></li>
+						<li><a class="site-logo" href="<?php echo home_url(); ?>"><img class="site-logo-img" src="http://digitalhumanitiesnow.org/wp-content/uploads/2015/07/150330_dhnow_logo_inverse-lato.png"></a></li>
 					<?php endif; ?>
 
 					</ul>
