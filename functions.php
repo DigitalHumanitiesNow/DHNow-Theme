@@ -382,7 +382,7 @@ function add_user_signupmeta($userid, $voldates) {
 		return json_decode( wp_remote_retrieve_body( $resp ), true );
 	}
   function check_captcha() {
-     $privatekey = '6LcEcC8UAAAAANYjC9ND4B8UHqIZg6HT4bYULYS-';
+     $privatekey = '6LfsUisUAAAAAPqLTEgAZmiR0y-KiJ0ZMsU6J8uC';
      $response = gglcptch_get_response( $privatekey );
      if ($response['success']) {
       return 1;
