@@ -23,8 +23,9 @@
 	</section> <!-- end article section -->
 
 	<footer class="article-footer large-12 columns">
+		<div class="large-offset-3 large-9 columns">
 		<p class="tags"><?php the_tags('<span class="tags-title">' . __( 'Tags:', 'pressforward-turnkey-theme' ) . '</span> ', ', ', ''); ?></p>	</footer> <!-- end article footer -->
-
+	</div>
 		<?php if (in_category($slidercat)):
 									$currentpostdate = get_the_date('Y/m/d');
 									$chief = get_post_meta($post->ID, 'editor-in-chief', true);
