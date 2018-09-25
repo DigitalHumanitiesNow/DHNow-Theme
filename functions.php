@@ -307,7 +307,7 @@ function yourprefix_register_user_profile_metabox() {
   $cmb_user->add_field( array(
     'name'    => __( '2016 Sign Up Dates', 'cmb2' ),
     'desc'    => __( 'field description (optional)', 'cmb2' ),
-    'id'      => 'pie_checkbox_3',
+    'id'      => 'pie_checkbox_13',
     'type'    => 'multicheck',
     // 'multiple' => true, // Store values in individual rows
     'options' => array(
@@ -343,7 +343,7 @@ function vb_register_user_scripts() {
 }
 add_action('wp_enqueue_scripts', 'vb_register_user_scripts', 100);
 function add_user_signupmeta($userid, $voldates) {
-  add_user_meta( $userid, 'pie_checkbox_3', $voldates);
+  add_user_meta( $userid, 'pie_checkbox_13', $voldates);
 }
 // function captcha_verification() {
 //
