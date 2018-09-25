@@ -7,7 +7,7 @@
 			 if ($breadcrumb_nav == true):
 					echo custom_breadcrumb();
 				endif; ?>
-		    <main id="main" class="large-8 medium-8 columns" role="main">
+		    <main id="main" class="large-12 medium-12 columns" role="main">
 
 		    	<header>
 		    		<h1 class="page-title"><?php the_archive_title();?></h1>
