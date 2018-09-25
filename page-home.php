@@ -349,8 +349,8 @@ $b3_linkortitle = Kirki::get_option('pftk_opts', 'b3-maketitlelinked');
 				        $b3r2c3_link = Kirki::get_option('pftk_opts', 'b3r2c3-link');
 				        $b3r2c3_title = Kirki::get_option('pftk_opts', 'b3r2c3-title');
 
-							
-								echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/resources/">' .
+
+								echo '<h1><a href="http://digitalhumanitiesnow.org/category/news/resources/">' . $b3r2c3_title .'</a></h1>';
 							?>
 
 				        <ul>
