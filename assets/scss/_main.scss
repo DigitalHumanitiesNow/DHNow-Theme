@@ -19,10 +19,10 @@ GENERAL STYLES
 // 	top: 50%;
 // 	right: 0;
 // }
-#footer-logo {
-	@media (max-width: @screen-md){
-		width: 85%;
-		height: auto;
+
+#menu-editors-corner-menu {
+	li {
+		display: block;
 	}
 }
 .dhnow_site_logo_img {

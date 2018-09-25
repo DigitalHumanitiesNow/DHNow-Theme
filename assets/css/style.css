@@ -1650,7 +1650,7 @@ h4,
 h5,
 h6 {
   font-family: "Arvo", "Times New Roman", Times, serif;
-  font-weight: normal;
+  font-weight: 500;
   font-style: normal;
   color: inherit;
   text-rendering: optimizeLegibility;
@@ -3855,6 +3855,9 @@ Stylesheet: Main Stylesheet
 /*********************
 GENERAL STYLES
 *********************/
+#menu-editors-corner-menu li {
+  display: block; }
+
 .dhnow_site_logo_img {
   width: auto;
   height: 40px; }

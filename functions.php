@@ -305,7 +305,7 @@ function yourprefix_register_user_profile_metabox() {
 	) );
 
   $cmb_user->add_field( array(
-    'name'    => __( '2016 Sign Up Dates', 'cmb2' ),
+    'name'    => __( '2018 Sign Up Dates', 'cmb2' ),
     'desc'    => __( 'field description (optional)', 'cmb2' ),
     'id'      => 'pie_checkbox_13',
     'type'    => 'multicheck',
