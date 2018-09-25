@@ -24,7 +24,7 @@
 
 	<footer class="article-footer large-12 columns">
 		<div class="large-offset-3 large-9 columns">
-		<p class="tags"><?php the_tags('<span class="tags-title">' . __( 'Tags:', 'pressforward-turnkey-theme' ) . '</span> ', ', ', ''); ?></p>	</footer> <!-- end article footer -->
+		<p class="tags"><?php the_tags('<span class="tags-title">' . __( 'Tags:', 'pressforward-turnkey-theme' ) . '</span> ', ', ', ''); ?></p>	 <!-- end article footer -->
 	</div>
 		<?php if (in_category($slidercat)):
 									$currentpostdate = get_the_date('Y/m/d');
@@ -39,3 +39,4 @@
 									echo '<div class="large-offset-3 large-9 columns editor"><p>This content was selected for <em>Digital Humanities Now</em> by Editor-in-Chief ' . $chief . ' based on nominations by Editors-at-Large: ' . implode($El_statement) . '</p></div>';
 								}
 							endif; ?>
+</footer>
